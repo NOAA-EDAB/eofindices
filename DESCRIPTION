@@ -1,0 +1,18 @@
+Package: indicatorPPR
+Type: Package
+Title: Utilities to create PPR index for the NEFSC SOE
+Version: 0.1.0
+Author: c(person("Andy", "Beet", email = "andrew.beet@noaa.gov", role = c("aut", "cre")),
+				person("Michael", "Fogarty", email = "michael.fogarty@noaa.gov", role = c("aut")))
+Maintainer: Andy Beet <andrew.beet@noaa.gov>
+Description: Primary Production Required, an index used to measure system health
+    in an ecosytem. The amount of primary reduction required to account for a given level of catch
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    dplyr,
+    ggplot2
+Remotes:
+    andybeet/dbutils
+RoxygenNote: 6.1.1
