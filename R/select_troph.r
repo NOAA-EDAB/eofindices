@@ -8,8 +8,7 @@
 #'@param FoodTroph Numeric vector. Value of Trophic level
 #'
 #'@return Numeric vector. combined vectors of Trophic level
-#'
-#'@export
+
 
 select_troph <- function(DietTroph,FoodTroph){
   troph <- DietTroph
