@@ -7,7 +7,7 @@
 calc_ppr_index(catch, speciesTL)
 }
 \arguments{
-\item{catch}{dataframe. n x 3. Data containg the total catch by each species in each year.
+\item{catch}{dataframe. n x anything. Data containg the total catch by each species in each year.
 Columns must be named YEAR,NESPP3,catch}
 
 \item{speciesTL}{dataframe. m x anything. Species codes and trophic level for the most abundantly caught species.

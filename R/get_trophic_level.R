@@ -81,6 +81,11 @@ get_trophic_level <- function(lookupTable) {
     }
   }
 
+  # create new field called Troph which uses DietToph. If NA then uses FoodTroph.
+  fishbaseTable <- fishbaseTable %>%
+    dplyr::mutate(Troph = select_troph(DietTroph,FoodTroph))
+
+
   return(fishbaseTable)
 
 }

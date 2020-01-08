@@ -10,7 +10,7 @@ explore_species_composition(channel, landings, threshold,
 \arguments{
 \item{channel}{DBI object. Connection object to database "sole"}
 
-\item{landings}{dataframe.}
+\item{landings}{dataframe (n x r). r >= 3. Must have 3 columns named YEAR,NESPP3,totLand}
 
 \item{threshold}{numeric scalar. Determining the fraction of landings to be represented. Eg. threshold = 0.8
 would find the fewest number of species (ordered by landings) that comprise 80\% of landings.}
@@ -20,10 +20,12 @@ would find the fewest number of species (ordered by landings) that comprise 80\%
 \item{...}{Other arguments passed to ggplot::ggsave}
 }
 \value{
-
+List:
+\item{p}{ggplot object}
+\item{data}{Tibble (n x 5). Columns: YEAR,NESPP3,LANDINGS,COMNAME,PresenceAbsence}
 }
 \description{
-Species that comprise the top x% of landings for each year are extracted
+Species that comprise the top x% of landings for each year are extracted.
 }
 \section{Attention}{
 
