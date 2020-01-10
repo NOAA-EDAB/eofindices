@@ -39,11 +39,11 @@ explore_species_composition <- function(channel,landings,threshold,filename=NULL
   }
   # plot topx species comp over time and landings
   # expand grid
+
   topxnespp3s <- topx %>% dplyr::distinct(NESPP3)
 
   lookupSpecies <- dbutils::create_species_lookup(channel,species=unlist(topxnespp3s))
-  commonNames <- lookupSpecies$data %>% dplyr::select(NESPP3,COMNAME) %>% dplyr::distinct()
-  #topx2 <- dplyr::left_join(topx,commonNames,by="NESPP3")
+  commonNames <- lookupSpecies$data %>% dplyr::select(NESPP3,COMMON_NAME) %>% dplyr::distinct()
 
   timeSpeciesGrid <- expand.grid(YEAR=min(years):max(years),NESPP3=topxnespp3s$NESPP3,stringsAsFactors = F)
   topxGrid <- dplyr::as_tibble(dplyr::left_join(timeSpeciesGrid,topx,by=c("YEAR","NESPP3")))
@@ -53,7 +53,7 @@ explore_species_composition <- function(channel,landings,threshold,filename=NULL
   yearAgg <- topxGrid %>% dplyr::group_by(YEAR) %>% dplyr::summarize(totLand=sum(LANDINGS,na.rm = T))
 
   p <- ggplot2::ggplot(data=topxGrid) +
-    ggplot2::geom_point(mapping=ggplot2::aes(x=YEAR,y=COMNAME,color=PresenceAbsence)) +
+    ggplot2::geom_point(mapping=ggplot2::aes(x=YEAR,y=COMMON_NAME,color=PresenceAbsence)) +
     ggplot2::scale_color_manual(values=c("white", "darkgreen")) +
     ggplot2::geom_line(data=yearAgg,ggplot2::aes(x=YEAR,y=1+length(unlist(topxnespp3s))+totLand/100000)) +
     ggplot2::theme(legend.position = "none",axis.title.x=ggplot2::element_blank(),axis.title.y=ggplot2::element_blank())
