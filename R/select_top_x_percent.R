@@ -18,7 +18,7 @@
 #'@export
 
 
-top_x_percent <- function(NESPP3,LANDINGS,threshold){
+select_top_x_percent <- function(NESPP3,LANDINGS,threshold){
 
   d <- data.frame(NESPP3 = NESPP3,LANDINGS = LANDINGS,stringsAsFactors = F)
 
