@@ -1,12 +1,10 @@
 #' Calculate the mean Trophic Level
 #'
-#' mean Trophic Level is calculated from a time series of landings
+#' mean Trophic Level is calculated from a time series of landings: It is the sum of the species Trophic levels #' weighted by their landings
+#'#'
 #'
-#'
-#'@param data dataframe. n x anything. Data containg the total catch by each species in each year.
-#'Columns must be named YEAR,NESPP3,catch
-#'@param speciesTL dataframe. m x anything. Species codes and trophic level for the most abundantly caught species.
-#'One column must be named NESPP3 and another Troph
+#'@param data dataframe. n x anything. Data containing the total catch by each species in each year. A complete grid of year by species must be passed. Columns must be named YEAR,NESPP3,catch.
+#'@param speciesTL dataframe. m x anything. Species codes and trophic level for the most abundantly caught species. One column must be named NESPP3 and another Troph
 #'
 #'@return
 #'
@@ -15,7 +13,7 @@
 
 ## need to generalize column names
 
-mean_trophic_level <- function(catch,speciesTL){
+calc_mean_trophic_level <- function(catch,speciesTL){
 
   #preallocate dataframe
   years <- unique(catch$YEAR)
