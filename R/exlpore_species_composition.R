@@ -4,10 +4,12 @@
 #'
 #'
 #'@param channel DBI object. Connection object to database "sole"
-#'@param landings dataframe (n x r). r >= 3. Must have 3 columns named YEAR,NESPP3,totLand
+#'@param landings dataframe (n x r). r >= 3. Must have at least three columns (one named YEAR) The other two necessary columns numst contain Species codes and Catch (units)
 #'@param threshold numeric scalar. Determining the fraction of landings to be represented. Eg. threshold = 0.8
 #'would find the fewest number of species (ordered by landings) that comprise 80\% of landings.
 #'@param filename character string. Filename of exported figure
+#'@param speciesCodeCN Character string. The name of the column in datafraem that contains the Species codes. Default = "NESPP3"
+#'@param catchCN Character string. The name of the column that contains the catch. Default = "CATCH"
 #'@param ... Other arguments passed to ggplot::ggsave
 #'
 #'
@@ -27,13 +29,17 @@
 #'
 #'@export
 
-explore_species_composition <- function(channel,landings,threshold,filename=NULL, ...) {
+explore_species_composition <- function(channel,landings,threshold,filename=NULL,speciesCodeCN="NESPP3",catchCN="CATCH" ...) {
+
+  # rename the column containing speciescode
+  names(landings)[names(landings) == speciesCodeCN] <- "NESPP3"
+  names(landings)[names(landings) == catchCN] <- "CATCH"
 
   years <- seq(from=min(landings$YEAR),to=max(landings$YEAR), by=1)
   topx <- data.frame(YEAR=NULL,NESPP3=NULL,LANDINGS=NULL)
   for (iy in years) {
     dataTop <- landings %>% dplyr::filter(YEAR == iy)
-    species <- select_top_x_percent(dataTop$NESPP3,dataTop$totLand,threshold)
+    species <- select_top_x_percent(dataTop$NESPP3,dataTop$CATCH,threshold)
     newYear <- data.frame(YEAR=as.integer(rep(iy,length(species$NESPP3))),NESPP3=species$NESPP3,LANDINGS=species$LANDINGS,stringsAsFactors=F)
     topx <- rbind(topx,newYear)
   }
@@ -61,6 +67,9 @@ explore_species_composition <- function(channel,landings,threshold,filename=NULL
   if (!is.null(filename)) {
     ggplot2::ggsave(filename=filename,plot=p, ...)
   }
+
+  names(topxGrid)[names(topxGrid) == "NESPP3"] <- speciesCodeCN
+  names(topxGrid)[names(topxGrid) == "CATCH"] <- catchCN
 
   return(list(plotObj = p,data=topxGrid))
 

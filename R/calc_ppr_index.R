@@ -17,7 +17,7 @@
 
 ## need to generalize column names
 
-calc_ppr_index <- function(catch,speciesTL){
+calc_ppr_index <- function(catch,speciesTL,speciesCode = "NESPP3"){
 
   #preallocate dataframe
   years <- unique(catch$YEAR)
@@ -29,7 +29,7 @@ calc_ppr_index <- function(catch,speciesTL){
     # select the current year
     data <- catch %>% dplyr::filter(YEAR == years[iy])
     # join catch with species(this contains trophic level)
-    master <- dplyr::left_join(data,speciesTL,by="NESPP3")
+    master <- dplyr::left_join(data,speciesTL,by=speciesCode)
 
     # calulate index
     PPR$Year[iy] <- years[iy]
