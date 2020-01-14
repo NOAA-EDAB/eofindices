@@ -33,7 +33,7 @@ explore_species_composition <- function(channel,landings,threshold,filename=NULL
   topx <- data.frame(YEAR=NULL,NESPP3=NULL,LANDINGS=NULL)
   for (iy in years) {
     dataTop <- landings %>% dplyr::filter(YEAR == iy)
-    species <- indicatorPPR::select_top_x_percent(dataTop$NESPP3,dataTop$totLand,threshold)
+    species <- select_top_x_percent(dataTop$NESPP3,dataTop$totLand,threshold)
     newYear <- data.frame(YEAR=as.integer(rep(iy,length(species$NESPP3))),NESPP3=species$NESPP3,LANDINGS=species$LANDINGS,stringsAsFactors=F)
     topx <- rbind(topx,newYear)
   }

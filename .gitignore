@@ -2,5 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
-indicatorPPR.Rproj
+
+# files and folders
+*.Rproj
 inst/doc

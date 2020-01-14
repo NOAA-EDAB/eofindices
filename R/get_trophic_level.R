@@ -34,7 +34,7 @@ get_trophic_level <- function(lookupTable) {
   #For each scientific name search fishbase
   # look in fishbase and sealifebase and look in ecology table for FoodTroph or DietTroph
   for (isp in 1:nSpecies) {
-    speciesNm <- indicatorPPR::capitalize_first_letter(fishbaseTable$SCIENTIFIC_NAME[isp])
+    speciesNm <- capitalize_first_letter(fishbaseTable$SCIENTIFIC_NAME[isp])
     print(speciesNm)
     if (fishbaseTable$genusSpecies[isp]) { # species name
       # search fishbase and sealifebase

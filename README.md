@@ -1,4 +1,4 @@
-# index_PPR
+# indexPPR
 
 A suite of tools used to calculate indices based on Trophic level.
 
