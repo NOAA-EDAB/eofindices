@@ -1,0 +1,97 @@
+---
+title: "Introduction: indexPPR"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{indexPPR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(indexPPR)
+```
+A suite of tools used to calculate indices based on Trophic level.
+
+It is assumed that you already have your catch/landings data in a data frame (`dataFrame`) with at least the following fields:
+
+* YEAR
+* SPECIES_CODE
+* CATCH
+* SCIENTIFIC_NAME
+
+If you are inside the NEFSC firewall then you do not need SCIENTIFIC_NAME. There are functions in this package to obtain them if your SPECIES_CODEs are one of the following NESPP3, SVSPP, or SPECIES_ITIS.
+
+### Scientific names
+
+The scientific names are used to obtain trophic level information by cross referencing `rfishbase`. It is best to extract distinct species information from your landings table.
+
+Note: Scientific names must be in the format: Genus species. eg. Scomber scombrus. If the scientific names are all capitalized, they will need to be converted to the required format. 
+
+You can use the `captialize_first_letter` function to achieve this
+
+``` {r}
+capitalize_first_letter("SCOMBER SCOMBRUS")
+```
+
+### Accessing rrishbase
+
+Trophic level information is stored in [fishbase](http://fishbase.de) and can be easily obtained using the package `rfishbase`, part of the rOpenSci project - open tools for open science. This is achievd using the function `get_trophic_level`
+
+
+```{r, eval=FALSE}
+# select distinct species from dataFrame
+speciesInfo <- dataFrame %>%
+  dplyr::select(YEAR,SPECIES_CODE,SCIENTIFIC_NAME) %>% 
+  dplyr::distinct()
+
+# get trophic level information from rfishbase
+fishbaseTable <- indexPPR::get_trophic_level(speciesInfo)
+
+# now join the trophic level info with your dataFrame
+newDataFrame <- dplyr::left_join(dataFrame,fishbaseTable,by=c("NESPP3"))
+```
+
+The data is now in the correct format to calulate the two indices; Primary Production Required and Mean Trophic Level.
+
+### Indices
+
+#### Primary Production Required (PPR)
+
+$$PPR_t = \sum_{i=1}^n \left( \left(\frac{Catch_{t,i}}{9}\right) 10^{TL_i-1}\right)$$
+
+where n = number of species, $TL_i$ is the trophic level of species i
+
+#### Mean Trophic Level 
+
+$$ \hat{TL}_t = \frac{\Sigma_{i} (landings_{t,i}  TL_{i})}{\Sigma_{i} landings_{t,i}}$$
+
+Use the two functions
+
+* `calc_ppr_index`
+* `calc_mean_trophic_level`
+
+```{r, eval= FALSE %>% }
+# To calculate the PPR index
+ppr <- calc_ppr_index(newDataFrame)
+
+# To calculate the mean trophic level
+mtl <- calc_mean_trophic_level(newDataFrame)
+```
+
+### Additional tools
+
+If you are inside the NEFSC firewall then you can use the NESPP3, SVSPP, or SPECIES_ITIS codes to obtain the SCIENTIFIC_NAMES (in addition to other variables). To do this you'll need a connection several things:
+
+* Oracle username and password
+* Oracle client installed on your machine
+* A databse connection object `dbutils::connect_to_database`
+* Run `dbutils::create_species_lookup`
+
+`dbutils` is a dependency of this package so you should have it installed already
