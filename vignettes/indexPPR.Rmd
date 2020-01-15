@@ -77,7 +77,7 @@ Use the two functions
 * `calc_ppr_index`
 * `calc_mean_trophic_level`
 
-```{r, eval= FALSE %>% }
+```{r, eval= FALSE}
 # To calculate the PPR index
 ppr <- calc_ppr_index(newDataFrame)
 

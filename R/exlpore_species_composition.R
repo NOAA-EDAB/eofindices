@@ -29,7 +29,7 @@
 #'
 #'@export
 
-explore_species_composition <- function(channel,landings,threshold,filename=NULL,speciesCodeCN="NESPP3",catchCN="CATCH" ...) {
+explore_species_composition <- function(channel,landings,threshold,filename=NULL,speciesCodeCN="NESPP3",catchCN="CATCH", ...) {
 
   # rename the column containing speciescode
   names(landings)[names(landings) == speciesCodeCN] <- "NESPP3"

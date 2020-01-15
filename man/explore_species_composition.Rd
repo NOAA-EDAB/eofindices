@@ -5,17 +5,21 @@
 \title{Explores species composition based on landings}
 \usage{
 explore_species_composition(channel, landings, threshold,
-  filename = NULL, ...)
+  filename = NULL, speciesCodeCN = "NESPP3", catchCN = "CATCH", ...)
 }
 \arguments{
 \item{channel}{DBI object. Connection object to database "sole"}
 
-\item{landings}{dataframe (n x r). r >= 3. Must have 3 columns named YEAR,NESPP3,totLand}
+\item{landings}{dataframe (n x r). r >= 3. Must have at least three columns (one named YEAR) The other two necessary columns numst contain Species codes and Catch (units)}
 
 \item{threshold}{numeric scalar. Determining the fraction of landings to be represented. Eg. threshold = 0.8
 would find the fewest number of species (ordered by landings) that comprise 80\% of landings.}
 
 \item{filename}{character string. Filename of exported figure}
+
+\item{speciesCodeCN}{Character string. The name of the column in datafraem that contains the Species codes. Default = "NESPP3"}
+
+\item{catchCN}{Character string. The name of the column that contains the catch. Default = "CATCH"}
 
 \item{...}{Other arguments passed to ggplot::ggsave}
 }
