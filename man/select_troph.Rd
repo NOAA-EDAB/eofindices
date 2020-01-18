@@ -4,18 +4,21 @@
 \alias{select_troph}
 \title{Combine trophic level data}
 \usage{
-select_troph(DietTroph, FoodTroph)
+select_troph(DietTroph, FoodTroph, EstTroph)
 }
 \arguments{
 \item{DietTroph}{Numeric vector. Value of Trophic level}
 
 \item{FoodTroph}{Numeric vector. Value of Trophic level}
+
+\item{EstTroph}{Numeric vector. Value of Trophic level}
 }
 \value{
 Numeric vector. combined vectors of Trophic level
 }
 \description{
 Fishbase contains Trophic level data in several locations.
-We use the field: DietTroph as our main measure of Trophic Level.
-If this is absent we resort to the field: FoodTroph
+We use the field: DietTroph as our main measure of Trophic Level (ecology table)
+If this is absent we resort to the field: FoodTroph (ecology table)
+then finally EstTroph (estimate table)
 }
