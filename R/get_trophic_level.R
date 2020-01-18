@@ -21,14 +21,14 @@
 
 get_trophic_level <- function(lookupTable) {
 
-  ## Need to deal with Genus level only
+  ## Need to deal with Genus, Family level only
   ## Need to output species/Genus with missing Trophic info
-
+  missingSpecies <- vector(mode = "character")
 
   # create base table, select scientific name for fishbase
-  fishbaseTable <- lookupTable  %>%
+  fishbaseTable <- lookupTable %>%
     dplyr::mutate(genusSpecies = grepl("\\s+",SCIENTIFIC_NAME)) %>%
-    dplyr::mutate(DietTroph=NA,FoodTroph=NA,EstTroph=NA,vertibrate=NA) #
+    dplyr::mutate(DietTroph=NA,FoodTroph=NA,EstTroph=NA,vertibrate=NA)
 
   nSpecies <- dim(fishbaseTable)[1]
   #For each scientific name search fishbase
@@ -37,20 +37,26 @@ get_trophic_level <- function(lookupTable) {
     speciesNm <- capitalize_first_letter(fishbaseTable$SCIENTIFIC_NAME[isp])
     print(speciesNm)
     if (fishbaseTable$genusSpecies[isp]) { # species name
-      # search fishbase and sealifebase
-      vertibrates <- rfishbase::ecology(species_list=speciesNm, server = "fishbase") %>%
-        dplyr::select(DietTroph,FoodTroph)
-      # estimate table.
-      est <- rfishbase::estimate(species_list=speciesNm, server = "fishbase") %>%
-        dplyr::select(Troph)
-      vertibrates <- cbind(vertibrates,est)
-      if(any(!is.na(vertibrates))) {
-        if((dim(vertibrates)[1])>1) {vertibrates <- data.frame(as.list(colMeans(vertibrates,na.rm = T)))}
-        fishbaseTable$DietTroph[isp] <- vertibrates$DietTroph
-        fishbaseTable$FoodTroph[isp] <- vertibrates$FoodTroph
-        fishbaseTable$EstTroph[isp] <- est$Troph
+      # check to see if it is in fishbase
+      if(any(paste(rfishbase::fishbase$Genus,rfishbase::fishbase$Species)==speciesNm)) {
+        #vertibrate
         fishbaseTable$vertibrate[isp] <- T
-      } else { #maybe an invertibrate
+        # search fishbase and sealifebase
+        vertibrates <- rfishbase::ecology(species_list=speciesNm, server = "fishbase") %>%
+          dplyr::select(DietTroph,FoodTroph)
+        # estimate table.
+        est <- rfishbase::estimate(species_list=speciesNm, server = "fishbase") %>%
+          dplyr::select(Troph)
+        vertibrates <- cbind(vertibrates,est)
+        if(any(!is.na(vertibrates))) {
+          if((dim(vertibrates)[1])>1) {vertibrates <- data.frame(as.list(colMeans(vertibrates,na.rm = T)))}
+          fishbaseTable$DietTroph[isp] <- vertibrates$DietTroph
+          fishbaseTable$FoodTroph[isp] <- vertibrates$FoodTroph
+          fishbaseTable$EstTroph[isp] <- est$Troph
+        }
+
+      } else if (any(paste(rfishbase::sealifebase$Genus,rfishbase::sealifebase$Species)==speciesNm)) { #invertibrate
+        fishbaseTable$vertibrate[isp] <- F
         invertibrates <- rfishbase::ecology(species_list=speciesNm, server = "sealifebase") %>%
           dplyr::select(DietTroph,FoodTroph)
         est <- rfishbase::estimate(species_list=speciesNm, server = "fishbase") %>%
@@ -61,11 +67,16 @@ get_trophic_level <- function(lookupTable) {
           fishbaseTable$DietTroph[isp] <- invertibrates$DietTroph
           fishbaseTable$FoodTroph[isp] <- invertibrates$FoodTroph
           fishbaseTable$EstTroph[isp] <- est$Troph
-          fishbaseTable$vertibrate[isp] <- F
+
         }
+      } else {
+        # not in fishbase or sealife base. but is a species Code
+        missingSpecies <- rbind(missingSpecies,speciesNm)
+        message(paste0("Species name: ",speciesNm, " doesn't exist in either database."))
       }
 
-    } else { # genus only
+    } else {
+      # genus only
       # find all species from this Genus
       speciesNames <- rfishbase::fishbase %>%
         dplyr::filter(Genus == speciesNm) %>%
@@ -90,7 +101,6 @@ get_trophic_level <- function(lookupTable) {
         dplyr::select(Troph)
 
       vertibrates <- cbind(vertibrates,est)
-
 
       if (any(!is.na(vertibrates))) {
         vertibrates <- data.frame(as.list(colMeans(vertibrates,na.rm = T)))
@@ -122,6 +132,6 @@ get_trophic_level <- function(lookupTable) {
     dplyr::mutate(Troph = select_troph(DietTroph,FoodTroph,EstTroph))
 
 
-  return(fishbaseTable)
+  return(list(fishbaseTable=fishbaseTable,missingSpecies=missingSpecies))
 
 }
