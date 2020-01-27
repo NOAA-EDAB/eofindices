@@ -59,7 +59,7 @@ get_trophic_level <- function(lookupTable) {
         fishbaseTable$vertibrate[isp] <- F
         invertibrates <- rfishbase::ecology(species_list=speciesNm, server = "sealifebase") %>%
           dplyr::select(DietTroph,FoodTroph)
-        est <- rfishbase::estimate(species_list=speciesNm, server = "fishbase") %>%
+        est <- rfishbase::estimate(species_list=speciesNm, server = "sealifebase") %>%
           dplyr::select(Troph)
         invertibrates <- cbind(invertibrates,est)
         if(any(!is.na(invertibrates))){
@@ -109,9 +109,22 @@ get_trophic_level <- function(lookupTable) {
         fishbaseTable$EstTroph[isp] <- vertibrates$FoodTroph
         fishbaseTable$vertibrate[isp] <- T
       } else {
+        # inverts
+
+        speciesNames <- rfishbase::sealifebase %>%
+          dplyr::filter(Genus == speciesNm) %>%
+          dplyr::mutate(sciName = paste(Genus,Species)) %>%
+          dplyr::select(sciName)
+        # now select only species in Canda or USA
+        speciesNs <- rfishbase::country(species_list=as.vector(unlist(speciesNames)),server="sealifebase") %>%
+          dplyr::filter(country %in% c("Canada","USA"), Saltwater == 1) %>%
+          dplyr::select(Species) %>%
+          dplyr::distinct()
+
+
         invertibrates <- rfishbase::ecology(species_list=as.vector(unlist(speciesNs)), server = "sealifebase") %>%
           dplyr::select(DietTroph,FoodTroph)
-        est <- rfishbase::estimate(species_list=as.vector(unlist(speciesNs)), server = "fishbase") %>%
+        est <- rfishbase::estimate(species_list=as.vector(unlist(speciesNs)), server = "sealifebase") %>%
           dplyr::select(Troph)
         invertibrates <- cbind(invertibrates,est)
 
@@ -129,7 +142,7 @@ get_trophic_level <- function(lookupTable) {
   # If DietRoph == NA then uses FoodTroph.
   # If FoodTroph == NA uses estTroph.
   fishbaseTable <- fishbaseTable %>%
-    dplyr::mutate(Troph = select_troph(DietTroph,FoodTroph,EstTroph))
+    dplyr::mutate(Troph = select_troph(DietTroph,FoodTroph,EstTroph=NULL))
 
 
   return(list(fishbaseTable=fishbaseTable,missingSpecies=missingSpecies))
