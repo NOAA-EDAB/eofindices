@@ -18,8 +18,8 @@ One column must be named NESPP3 and another Troph}
 \value{
 Data frame:
 
-\item{Year}{Year of the index}
-\item{Index}{Value of the index}
+\item{YEAR}{Year of the index}
+\item{INDEX}{Value of the index}
 }
 \description{
 Using ideas found in Pauly & Christensen's (1995) Nature publication,

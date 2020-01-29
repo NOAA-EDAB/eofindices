@@ -9,8 +9,8 @@
 #'
 #'@return Data frame:
 #'
-#'\item{Year}{Year of the index}
-#'\item{Index}{Value of the index}
+#'\item{YEAR}{Year of the index}
+#'\item{INDEX}{Value of the index}
 #'
 #'
 #'
@@ -23,7 +23,7 @@ calc_mtl_index <- function(catch,speciesTL,speciesCode="NESPP3"){
   #preallocate dataframe
   years <- unique(catch$YEAR)
   meanTL <- as.data.frame(matrix(data=NA,nrow=length(years),ncol=2))
-  names(meanTL) <- c("Year","Index")
+  names(meanTL) <- c("YEAR","INDEX")
 
   # for each year calculate the mean trophic level
   for (iy in 1:length(years)) {

@@ -16,8 +16,8 @@ calc_mtl_index(catch, speciesTL, speciesCode = "NESPP3")
 \value{
 Data frame:
 
-\item{Year}{Year of the index}
-\item{Index}{Value of the index}
+\item{YEAR}{Year of the index}
+\item{INDEX}{Value of the index}
 }
 \description{
 mean Trophic Level is calculated from a time series of landings: It is the sum of the species Trophic levels #' weighted by their landings

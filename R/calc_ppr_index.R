@@ -13,8 +13,8 @@
 #'
 #'@return Data frame:
 #'
-#'\item{Year}{Year of the index}
-#'\item{Index}{Value of the index}
+#'\item{YEAR}{Year of the index}
+#'\item{INDEX}{Value of the index}
 #'
 #'
 #'@export
@@ -26,7 +26,7 @@ calc_ppr_index <- function(catch,speciesTL,speciesCode = "NESPP3"){
   #preallocate dataframe
   years <- unique(catch$YEAR)
   PPR <- as.data.frame(matrix(data=NA,nrow=length(years),ncol=2))
-  names(PPR) <- c("Year","Index")
+  names(PPR) <- c("YEAR","INDEX")
 
   # for each year calculate the PPR score
   for (iy in 1:length(years)) {
