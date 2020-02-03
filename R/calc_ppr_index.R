@@ -9,6 +9,8 @@
 #'Columns must be named YEAR,NESPP3,catch
 #'@param speciesTL dataframe. m x anything. Species codes and trophic level for the most abundantly caught species.
 #'One column must be named NESPP3 and another Troph
+#'@param transferEfficiency
+#'
 #'@param speciesCode Character string. The name of the column that holds the speciesCodes. Default = "NESPP3".
 #'
 #'@return Data frame:
@@ -21,7 +23,7 @@
 
 ## need to generalize column names
 
-calc_ppr_index <- function(catch,speciesTL,speciesCode = "NESPP3"){
+calc_ppr_index <- function(catch,speciesTL,transferEfficiency,speciesCode = "NESPP3"){
 
   #preallocate dataframe
   years <- unique(catch$YEAR)
@@ -36,11 +38,11 @@ calc_ppr_index <- function(catch,speciesTL,speciesCode = "NESPP3"){
     master <- dplyr::left_join(data,speciesTL,by=speciesCode)
 
     # calulate index
-    PPR$Year[iy] <- years[iy]
+    PPR$YEAR[iy] <- years[iy]
     # decision rule for missing data. ALL to zero
     master$totLand[is.na(master$totLand)] <- 0
     # index
-    PPR$Index[iy] <- sum((master$totLand/9)*10^(master$Troph-1))
+    PPR$INDEX[iy] <- sum((master$totLand/9)*(1/transferEfficiency)^(master$Troph-1))
   }
 
   return(PPR)

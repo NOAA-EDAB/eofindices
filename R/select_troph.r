@@ -7,7 +7,7 @@
 #'
 #'@param DietTroph Numeric vector. Value of Trophic level
 #'@param FoodTroph Numeric vector. Value of Trophic level
-#'@param EstTroph Numeric vector. Value of Trophic level
+#'param EstTroph Numeric vector. Value of Trophic level
 #'
 #'@return Numeric vector. combined vectors of Trophic level
 #'@export
@@ -18,8 +18,10 @@ select_troph <- function(DietTroph,FoodTroph,EstTroph){
   # if Dietroph is missing use FoodTroph
   ind <- is.na(DietTroph)
   troph[ind] <- FoodTroph[ind]
-  # if still missing then use EstTroph
-  ind <- is.na(DietTroph)
-  troph[ind] <- EstTroph[ind]
+  if (!is.null(EstTroph)){
+    # if still missing then use EstTroph
+    ind <- is.na(DietTroph)
+    troph[ind] <- EstTroph[ind]
+  }
   return(troph)
 }

@@ -9,9 +9,8 @@ select_troph(DietTroph, FoodTroph, EstTroph)
 \arguments{
 \item{DietTroph}{Numeric vector. Value of Trophic level}
 
-\item{FoodTroph}{Numeric vector. Value of Trophic level}
-
-\item{EstTroph}{Numeric vector. Value of Trophic level}
+\item{FoodTroph}{Numeric vector. Value of Trophic level
+param EstTroph Numeric vector. Value of Trophic level}
 }
 \value{
 Numeric vector. combined vectors of Trophic level

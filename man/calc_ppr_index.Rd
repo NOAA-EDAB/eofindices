@@ -4,7 +4,8 @@
 \alias{calc_ppr_index}
 \title{Calculate the PPR index}
 \usage{
-calc_ppr_index(catch, speciesTL, speciesCode = "NESPP3")
+calc_ppr_index(catch, speciesTL, transferEfficiency,
+  speciesCode = "NESPP3")
 }
 \arguments{
 \item{catch}{dataframe. n x anything. Data containg the total catch by each species in each year.
@@ -12,6 +13,8 @@ Columns must be named YEAR,NESPP3,catch}
 
 \item{speciesTL}{dataframe. m x anything. Species codes and trophic level for the most abundantly caught species.
 One column must be named NESPP3 and another Troph}
+
+\item{transferEfficiency}{}
 
 \item{speciesCode}{Character string. The name of the column that holds the speciesCodes. Default = "NESPP3".}
 }

@@ -33,11 +33,11 @@ calc_mtl_index <- function(catch,speciesTL,speciesCode="NESPP3"){
     master <- dplyr::left_join(data,speciesTL,by=speciesCode)
 
     # calulate index
-    meanTL$Year[iy] <- years[iy]
+    meanTL$YEAR[iy] <- years[iy]
     # decision rule for missing data. ALL to zero
     master$totLand[is.na(master$totLand)] <- 0
     # index
-    meanTL$Index[iy] <- sum(master$totLand * master$Troph) / sum(master$totLand)
+    meanTL$INDEX[iy] <- sum(master$totLand * master$Troph) / sum(master$totLand)
   }
 
   return(meanTL)
