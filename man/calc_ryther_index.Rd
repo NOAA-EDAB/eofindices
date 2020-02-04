@@ -10,6 +10,8 @@ calc_ryther_index(catch, area, catchField = "totLand")
 \item{catch}{dataframe. n x anything. Data containg the total catch in each year. Must contain two columns labelled YEAR,catch. Can be listed by species. \code{catch} must be in metric tonnes}
 
 \item{area}{Numeric scalar. Area of the region (km^2) in which catched come from.}
+
+\item{catchField.}{Character string. The name of the field in \code{catch} which contains the catch data.}
 }
 \value{
 Data frame:

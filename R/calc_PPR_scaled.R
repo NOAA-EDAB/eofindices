@@ -17,8 +17,6 @@ calc_PPR_scaled <- function(PPR,PP,units="m") {
     epuAreaM2 <- PP$EPUarea*1000000
   }
 
-  print(epuAreaM2)
-  #print(epuAreaM2OLD)
 
   joinedTab <- dplyr::left_join(PP$PP,PPR,by = "YEAR")
 
