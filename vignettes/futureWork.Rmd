@@ -30,9 +30,16 @@ We have explored the index in the following ways. Using:
 * *Combined vertibrates and invertibrates.*
 
     The landings in some of the EPUs are dominated by invertibrates (LOBSTER, CLAMS) which may play a significant part in driving this index. Creating two additional indices, one for vertibrates and one for invertibrates may be an interesting avenue. This will of course imply the inclusion of many other lesser caught species into the index. It will also involve partioning the landings into vertibrates and invertibrates.
+    
+
 
 ### Other comments
 
 * Some classifications in the commercial fisheries database are not at the species level. Some are Genus, Family or even higher orders, some are just general unclassified. eg. (DOGFISH, UNC, FLATFISH, Argentinidae). Most of these cases are associated with lower landings. However if we increase the threshold and/or split landings into vertibrates and invertibrates we will encounter more of these classifications. They will need to be assigned a trophic level which may cause complications and/ or subjective decision making.
 
 * It is possible for species to drop out of the top x% of the landings and be replaced by other species with similar trophic level and the index will somewhat insensitve to this. The mean trophic level would also be insensitive to such changes. This may or maynot be of concern but it my be worth looking into how often this happens.
+
+* Interpretation of Index: A decline in PPR could be explained by constant landings and increase in PP or constant PP but increase in landings. How best to interpret the index. Maybe tease out species specific contributions to indicator
+
+* Related to yield: Can we link this indicator to fisheries yield and/or revenue?
+
