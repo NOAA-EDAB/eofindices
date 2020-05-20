@@ -7,9 +7,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+
 
 This worked example will result in plots of the following for a specified EPU:
 
@@ -28,7 +26,8 @@ Initial values for the following are needed:
 
 The data are intially filtered by epu and the landings are aggregated by YEAR for each species (NESPP3 code). A grid is then create for all species in all years
 
-``` {r filterD, eval=F}
+
+```r
 library(magrittr)
 threshold <- "0.80"
 transferEff <- .15
@@ -47,14 +46,13 @@ nespp3s <- unique(comland$NESPP3)
 # expand grid (all species by all years) to include Zeros
 completeGrid <- expand.grid(YEAR=min(comland$YEAR):max(comland$YEAR),NESPP3=nespp3s,stringsAsFactors = F)
 landingsTable <- dplyr::as_tibble(dplyr::left_join(completeGrid,landings,by=c("YEAR","NESPP3")))
-
-
 ```
 
 
 The scientific names for each species are obtained by cross referencing cfdbs and svdbs. Then rfishbase is accessed to pull the Trophic level data for each species
 
-```{r scinames, eval=F }
+
+```r
 # get species itis, scientific name etc
 lookup <- dbutils::create_species_lookup(channel,species=nespp3s)
 lookupTable <- lookup$data
@@ -65,12 +63,12 @@ fishbaseTable <- lookupTable %>% dplyr::select(COMMON_NAME,SCIENTIFIC_NAME,NESPP
 # access fishbase for Trophic level data
 callfishbase <- indexPPR::get_trophic_level(fishbaseTable)
 fishbaseTable <- callfishbase$fishbaseTable
-
 ```
 
 The indices are then calculated over the time range dictated by the landings data.
 
-```{r pprindices, eval = F}
+
+```r
 yrs <- min(comland$YEAR):max(comland$YEAR)
 
 # Calculate the indices ---------------------------------------------------
@@ -105,42 +103,36 @@ for (iy in yrs) { #loop
   PPR <- rbind(PPR,c(ppr_index,nSpeciesTop,landingsTop))  
   MTL <- rbind(MTL,c(mtl_index,nSpeciesTop,landingsTop))
 } 
-  
 ```
 
 Primary production info is obtained and the PPR index is scaled by the annual PP to create an index representing proportion of PPR. The indices are shortened to the time frame represented by the PP data
 
-```{r scaledppr, eval = F}
+
+```r
 PP <- indexPPR::get_annual_PP(yrs,epu)
 scaled <- indexPPR::calc_PPR_scaled(PPR,PP)
 
 MTL <- MTL %>% dplyr::filter(YEAR %in% scaled$YEAR)
-
 ```
 
 The indices are then plotted
 
-```{r plotppr, eval = F}
+
+```r
 indexPPR::plot_pp_index(scaled,epu)
 indexPPR::plot_ppr_index(scaled,epu)
 indexPPR::plot_mtl_index(MTL,epu)
-
 ```
 
-```{r includeplots1, eval = T, echo = F, out.width='50%'}
-path <- here::here("vignettes","figures")
-knitr::include_graphics(paste0(path,"/PPR-GOM-0_80.png"))
-knitr::include_graphics(paste0(path,"/MTL-GOM-0_80.png"))
-knitr::include_graphics(paste0(path,"/PP-GOM.png"))
-```
+<img src="C:/Users/andrew.beet/Documents/MyWork/gitHub_repos/indexPPR/vignettes/figures/PPR-GOM-0_80.png" width="50%" /><img src="C:/Users/andrew.beet/Documents/MyWork/gitHub_repos/indexPPR/vignettes/figures/MTL-GOM-0_80.png" width="50%" /><img src="C:/Users/andrew.beet/Documents/MyWork/gitHub_repos/indexPPR/vignettes/figures/PP-GOM.png" width="50%" />
 
 
 ## Species composition over time
 
 This will also require a connection to internal oracle databases. A connection object should be created and passed as the variable `channel`
 
-```{r speciescompppr, eval=F}
 
+```r
 ## filter landings for designated EPU
 landings <- comland %>% dplyr::filter(EPU == epu)  %>% # US and NAFO landings
   dplyr::group_by(YEAR,NESPP3) %>%
@@ -161,12 +153,9 @@ landings <- comland %>% dplyr::filter(EPU == epu)  %>% # US and NAFO landings
 
 # Plot species composition
 plot(speciesComp$plotObj)
-
 ```
 
 
-```{r plotspeciescomp, echo = F, eval = T, out.width='80%'}
-knitr::include_graphics(paste0(path,"/composition-GOM-0_80.png"))
-```
+<img src="C:/Users/andrew.beet/Documents/MyWork/gitHub_repos/indexPPR/vignettes/figures/composition-GOM-0_80.png" width="80%" />
 
 

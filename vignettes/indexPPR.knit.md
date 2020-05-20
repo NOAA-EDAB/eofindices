@@ -1,0 +1,100 @@
+---
+title: "Introduction: indexPPR"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{indexPPR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+
+```r
+library(indexPPR)
+```
+A suite of tools used to calculate indices based on Trophic level.
+
+It is assumed that you already have your catch/landings data in a data frame (`dataFrame`) with at least the following fields:
+
+* YEAR
+* SPECIES_CODE
+* CATCH
+* SCIENTIFIC_NAME
+
+If you are inside the NEFSC firewall then you do not need SCIENTIFIC_NAME. There are functions in this package to obtain them if your SPECIES_CODEs are one of the following NESPP3, SVSPP, or SPECIES_ITIS.
+
+### Scientific names
+
+The scientific names are used to obtain trophic level information by cross referencing information held in `fishbase` and `sealifebase` by using the package `rfishbase`
+
+Note: Scientific names must be in the format: Genus species. eg. Scomber scombrus. If the scientific names are all capitalized, they will need to be converted to the required format. 
+
+You can use the `captialize_first_letter` function to achieve this
+
+
+```r
+indexPPR::capitalize_first_letter("SCOMBER SCOMBRUS")
+#> [1] "Scomber scombrus"
+```
+
+### Accessing rfishbase
+
+Trophic level information is stored in [fishbase](http://fishbase.de) and can be easily obtained using the package `rfishbase`, part of the rOpenSci project - open tools for open science. This is achievd using the function `indpexPPR::get_trophic_level`
+
+
+
+```r
+# select distinct species from dataFrame
+speciesInfo <- dataFrame %>%
+  dplyr::select(YEAR,SPECIES_CODE,SCIENTIFIC_NAME) %>% 
+  dplyr::distinct()
+
+# get trophic level information from rfishbase
+fishbaseTable <- indexPPR::get_trophic_level(speciesInfo)
+
+# now join the trophic level info with your dataFrame
+newDataFrame <- dplyr::left_join(dataFrame,fishbaseTable,by=c("NESPP3"))
+```
+
+The data is now in the correct format to calulate the two indices; Primary Production Required and Mean Trophic Level.
+
+### Indices
+
+#### Primary Production Required (PPR)
+
+The index is a measure of the impact of fishing on the base of the foodweb. The amount of potential yield we can expect from a marine ecosystem depends on the amount of production entering at the base of the food web, primarily in the form of phytoplankton; the pathways this energy follows to reach harvested species; the efficiency of transfer of energy at each step in the food web; and the fraction of this production that is removed by the fisheries.  Species such as scallops and clams primarily feed directly on larger phytoplankton species and therefore require only one step in the transfer of energy. The loss of energy at each step can exceed 80-90%.  For many fish species, as many as 2-4 steps may be necessary. Given the trophic level and the efficiency of energy transfer of the species in the ecosystem the amount phytoplankton production required (PPR) to account for the observed catch can be estimated.
+
+The index for Primary Production Required (PPR) was adapted from [@pauly1995ppr].
+
+$$PPR_t = \sum_{i=1}^{n_t}  \left(\frac{landings_{t,i}}{9}\right) \left(\frac{1}{TE}\right)^{TL_i-1}$$
+where $n_t$ = number of species in time $t$, $landings_{t,i}$ = landings of species $i$ in time $t$, $TL_i$ is the trophic level of species $i$, $TE$ = Trophic efficiency. The PPR estimate assumes a 9:1 ratio for the conversion of wet weight to carbon and a 15\% transfer efficiency per trophic level, ($TE$ = 0.15)
+
+#### Mean Trophic Level 
+
+$$ \hat{TL}_t = \frac{\Sigma_{i} (landings_{t,i}  TL_{i})}{\Sigma_{i} landings_{t,i}}$$
+
+Use the two functions
+
+* `calc_ppr_index`
+* `calc_mtl_index`
+
+
+```r
+# To calculate the PPR index
+ppr <- calc_ppr_index(newDataFrame)
+
+# To calculate the mean trophic level
+mtl <- calc_mtl_index(newDataFrame)
+```
+
+### Additional tools
+
+If you are inside the NEFSC firewall then you can use the NESPP3, SVSPP, or SPECIES_ITIS codes to obtain the SCIENTIFIC_NAMES (in addition to other variables). To do this you'll need a connection several things:
+
+* Oracle username and password
+* Oracle client installed on your machine
+* A databse connection object `dbutils::connect_to_database`
+* Run `dbutils::create_species_lookup`
+
+`dbutils` is a dependency of this package so you should have it installed already
