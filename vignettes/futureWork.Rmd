@@ -31,6 +31,12 @@ We have explored the index in the following ways. Using:
 
     The landings in some of the EPUs are dominated by invertibrates (LOBSTER, CLAMS) which may play a significant part in driving this index. Creating two additional indices, one for vertibrates and one for invertibrates may be an interesting avenue. This will of course imply the inclusion of many other lesser caught species into the index. It will also involve partioning the landings into vertibrates and invertibrates.
     
+* *Uncertainty Estimates*
+
+    No uncertainty is presented. This could be included in several ways. And the sensitivity of the index to each of the following examined.
+    * Trophic level uncertainty - fishbase
+    * landings uncertainty
+    * primary production uncertainty
 
 
 ### Other comments (+ Councils)
