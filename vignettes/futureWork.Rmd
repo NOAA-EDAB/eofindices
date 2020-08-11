@@ -42,6 +42,13 @@ We have explored the index in the following ways. Using:
     * landings uncertainty
     * primary production uncertainty
 
+* *Survey Comparison*
+
+    Compare mean trophic level from survey data with commercial landings. (Just for vertibrates). There are some pretty big spikes in MTL, maybe due to invertibrates
+
+* *Extend time series*
+
+    Reacalculate the index going back to the 60's. Primary production info is not available for that time period however we can make some assumptions (mean, median, max of PP data we do have). The idea is to how we are now relative to the 60's when we had very large harvests
 
 ### Other comments (+ Councils)
 
