@@ -2,7 +2,7 @@
 
 A suite of tools used to calculate indices based on Trophic level.
 
-1. Primary Production Required (PPR)
+1. Primary Production Required (PPR)<sup>1</sup>
 
 1. Mean Trophic Level 
 
@@ -10,7 +10,7 @@ A suite of tools used to calculate indices based on Trophic level.
 
 1. Fogarty Index<sup>1</sup>
 
-1. Friedland Index <sup>1</sup> (in dev)
+1. Friedland Index <sup>2</sup> (in dev)
 
 ## Installation
 
@@ -25,4 +25,8 @@ remotes::install_github("andybeet/indexPPR")
 
 
 Footnote:
-<sup>1</sup>J. S. Link, R. A. Watson, Global ecosystem overfishing: Clear delineation within real limits to production. Sci. Adv. 5, eaav0474 (2019).
+
+<sup>1</sup>Pauly, D, and V Christensen. 1995a. “Primary production required to sustain global fisheries.” Nature 374: 255–57. https://doi.org/https://doi.org/10.1038/374255a0.
+
+
+<sup>2</sup>J. S. Link, R. A. Watson, Global ecosystem overfishing: Clear delineation within real limits to production. Sci. Adv. 5, eaav0474 (2019).
