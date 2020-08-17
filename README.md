@@ -20,7 +20,7 @@ remotes::install_github("andybeet/indexPPR")
 
 ## Usage
 
-* See the [vignette](vignettes/indexPPR.md) for details
+* See the [vignette](vignettes/indexPPR.knit.md) for details
 * or the [Tech doc](https://noaa-edab.github.io/tech-doc/primary-production-required.html) for overview 
 
 
