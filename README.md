@@ -2,15 +2,15 @@
 
 A suite of tools used to calculate indices based on Trophic level.
 
-1. Primary Production Required (PPR)<sup>1</sup>
+* Primary Production Required (PPR)<sup>1</sup>
 
-1. Mean Trophic Level 
+* Mean Trophic Level 
 
-1. Ryther Index<sup>2</sup>
+* Ryther Index<sup>2</sup>
 
-1. Fogarty Index<sup>2</sup>
+* Fogarty Index<sup>2</sup>
 
-1. Friedland Index <sup>2</sup> (in dev)
+* Friedland Index <sup>2</sup> (in dev)
 
 ## Installation
 
