@@ -6,9 +6,9 @@ A suite of tools used to calculate indices based on Trophic level.
 
 1. Mean Trophic Level 
 
-1. Ryther Index<sup>1</sup>
+1. Ryther Index<sup>2</sup>
 
-1. Fogarty Index<sup>1</sup>
+1. Fogarty Index<sup>2</sup>
 
 1. Friedland Index <sup>2</sup> (in dev)
 
