@@ -2,7 +2,7 @@
 title: "Future Research"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{indexPPR}
+  %\VignetteIndexEntry{Future Research}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -40,6 +40,18 @@ We have explored the index in the following ways. Using:
     * landings uncertainty
     * primary production uncertainty
 
+* *Survey Comparison*
+
+    Compare mean trophic level from survey data with commercial landings. (Just for vertibrates). There are some pretty big spikes in MTL, maybe due to invertibrates
+
+* *Extend time series*
+
+    Reacalculate the index going back to the 60's. Primary production info is not available for that time period however we can make some assumptions (mean, median, max of PP data we do have). The idea is to how we are now relative to the 60's when we had very large harvests
+    
+* *Examine composition of species at trophic level*
+
+    The species composition within a trophic level could change throughout time. This may not be picked up in the index but may be of interest to managers. Need to examine data
+    
 
 ### Other comments (+ Councils)
 
