@@ -4,8 +4,7 @@
 \alias{calc_ppr_index}
 \title{Calculate the PPR index}
 \usage{
-calc_ppr_index(catch, speciesTL, transferEfficiency,
-  speciesCode = "NESPP3")
+calc_ppr_index(catch, speciesTL, transferEfficiency, speciesCode = "NESPP3")
 }
 \arguments{
 \item{catch}{dataframe. n x anything. Data containg the total catch by each species in each year.

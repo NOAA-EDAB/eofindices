@@ -2,6 +2,7 @@
 
 export(calc_PPR_scaled)
 export(calc_fogarty_index)
+export(calc_friedland_index)
 export(calc_mtl_index)
 export(calc_ppr_index)
 export(calc_ryther_index)

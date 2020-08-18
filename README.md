@@ -10,7 +10,7 @@ A suite of tools used to calculate indices based on Trophic level.
 
 * Fogarty Index<sup>2</sup>
 
-* Friedland Index <sup>2</sup> (in dev)
+* Friedland Index <sup>2</sup>
 
 ## Installation
 
@@ -20,8 +20,9 @@ remotes::install_github("andybeet/indexPPR")
 
 ## Usage
 
-* See the [vignette](vignettes/indexPPR.knit.md) for details
-* or the [Tech doc](https://noaa-edab.github.io/tech-doc/primary-production-required.html) for overview 
+* See the [vignette](vignettes/indexPPR.knit.md) for a walkthrough of the functions
+* See the [worked example](vignettes/workedExample.knit.md) for details on how to use this package.
+* or the [Tech doc](https://noaa-edab.github.io/tech-doc/primary-production-required.html) for overview of the methodology
 
 
 Footnote:

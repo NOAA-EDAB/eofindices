@@ -4,8 +4,15 @@
 \alias{explore_species_composition}
 \title{Explores species composition based on landings}
 \usage{
-explore_species_composition(channel, landings, threshold,
-  filename = NULL, speciesCodeCN = "NESPP3", catchCN = "CATCH", ...)
+explore_species_composition(
+  channel,
+  landings,
+  threshold,
+  filename = NULL,
+  speciesCodeCN = "NESPP3",
+  catchCN = "CATCH",
+  ...
+)
 }
 \arguments{
 \item{channel}{DBI object. Connection object to database "sole"}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_ryther_index.R
 \name{calc_ryther_index}
 \alias{calc_ryther_index}
-\title{Calculate the ryther index}
+\title{Calculate the Ryther index}
 \usage{
 calc_ryther_index(catch, area, catchField = "totLand")
 }
@@ -11,7 +11,7 @@ calc_ryther_index(catch, area, catchField = "totLand")
 
 \item{area}{Numeric scalar. Area of the region (km^2) in which catched come from.}
 
-\item{catchField.}{Character string. The name of the field in \code{catch} which contains the catch data.}
+\item{catchField}{Character string. The name of the field in \code{catch} which contains the catch data.}
 }
 \value{
 Data frame:
@@ -20,6 +20,21 @@ Data frame:
 \item{INDEX}{Value of the index}
 }
 \description{
-Using ideas found in Link & Watson (2019) Applied Ecology.
+The Ryther index is composed of total catch presented on a unit area basis for an ecosystem
+ using ideas found in Link & Watson (2019). See sources below.
+}
+\details{
 Index units: metric tonnes km^-2 year^-1
 }
+\section{Sources}{
+
+
+J. S. Link, R. A. Watson, Global ecosystem overfishing: Clear delineation within real limits to production. Sci. Adv. 5, eaav0474 (2019). \url{DOI: 10.1126/sciadv.aav0474}
+}
+
+\seealso{
+Other Link Indices: 
+\code{\link{calc_fogarty_index}()},
+\code{\link{calc_friedland_index}()}
+}
+\concept{Link Indices}
