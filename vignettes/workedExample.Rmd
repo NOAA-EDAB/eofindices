@@ -129,7 +129,7 @@ indexPPR::plot_mtl_index(MTL,epu)
 ```
 
 ```{r includeplots1, eval = T, echo = F, out.width='50%'}
-knitr::include_graphics("figures/PPR_GOM_0_80.png")
+knitr::include_graphics("figures/PPR-GOM-0_80.png")
 knitr::include_graphics("figures/MTL-GOM-0_80.png")
 knitr::include_graphics("figures/PP-GOM.png")
 ```
