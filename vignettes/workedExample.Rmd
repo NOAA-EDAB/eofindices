@@ -5,6 +5,7 @@ vignette: >
   %\VignetteIndexEntry{indexPPR}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+
 ---
 
 ```{r setup, include=FALSE}
@@ -128,10 +129,9 @@ indexPPR::plot_mtl_index(MTL,epu)
 ```
 
 ```{r includeplots1, eval = T, echo = F, out.width='50%'}
-path <- here::here("vignettes","figures")
-knitr::include_graphics(paste0(path,"/PPR-GOM-0_80.png"))
-knitr::include_graphics(paste0(path,"/MTL-GOM-0_80.png"))
-knitr::include_graphics(paste0(path,"/PP-GOM.png"))
+knitr::include_graphics("figures/PPR_GOM_0_80.png")
+knitr::include_graphics("figures/MTL-GOM-0_80.png")
+knitr::include_graphics("figures/PP-GOM.png")
 ```
 
 
@@ -166,7 +166,7 @@ plot(speciesComp$plotObj)
 
 
 ```{r plotspeciescomp, echo = F, eval = T, out.width='80%'}
-knitr::include_graphics(paste0(path,"/composition-GOM-0_80.png"))
+knitr::include_graphics("figures/composition-GOM-0_80.png")
 ```
 
 
