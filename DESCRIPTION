@@ -2,7 +2,7 @@ Package: indexPPR
 Type: Package
 Title: Utilities to create PPR index for the NEFSC SOE
 Version: 0.1.0
-Author: c(person("Andy", "Beet", email = "andrew.beet@noaa.gov", role = c("aut", "cre")),
+Authors@R: c(person("Andy", "Beet", email = "andrew.beet@noaa.gov", role = c("aut", "cre")),
 				person("Michael", "Fogarty", email = "michael.fogarty@noaa.gov", role = c("aut")))
 Maintainer: Andy Beet <andrew.beet@noaa.gov>
 Description: Primary Production Required, an index used to measure system health

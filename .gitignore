@@ -6,3 +6,4 @@
 # files and folders
 *.Rproj
 inst/doc
+docs
