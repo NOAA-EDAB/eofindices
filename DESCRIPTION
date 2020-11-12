@@ -13,7 +13,8 @@ LazyData: true
 Imports: 
     dplyr,
     ggplot2,
-    rfishbase
+    rfishbase,
+    magrittr
 Remotes:
     andybeet/dbutils
 RoxygenNote: 7.1.0
