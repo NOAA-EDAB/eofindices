@@ -20,8 +20,8 @@ remotes::install_github("andybeet/indexPPR")
 
 ## Usage
 
-* See the [vignette](vignettes/indexPPR.knit.md) for a walkthrough of the functions
-* See the [worked example](vignettes/workedExample.knit.md) for details on how to use this package.
+* See the [vignette](https://andybeet.github.io/indexPPR/articles/indexPPR.html) for a walkthrough of the functions
+* See the [worked example](https://andybeet.github.io/indexPPR/articles/workedExample.html) for details on how to use this package.
 * or the [Tech doc](https://noaa-edab.github.io/tech-doc/primary-production-required.html) for overview of the methodology
 
 
