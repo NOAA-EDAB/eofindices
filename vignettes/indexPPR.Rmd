@@ -2,7 +2,7 @@
 title: "Introduction: indexPPR"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{indexPPR}
+  %\VignetteIndexEntry{Introduction: indexPPR}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
