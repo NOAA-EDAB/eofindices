@@ -27,6 +27,8 @@
 #'\item{p}{ggplot object}
 #'\item{data}{Tibble (n x 5). Columns: YEAR,NESPP3,LANDINGS,COMNAME,PresenceAbsence}
 #'
+#'@importFrom magrittr "%>%"
+#'
 #'@export
 
 explore_species_composition <- function(channel,landings,threshold,filename=NULL,speciesCodeCN="NESPP3",catchCN="CATCH", ...) {

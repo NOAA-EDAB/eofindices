@@ -8,6 +8,8 @@
 #'\item{PP}{data frame. YEAR, ANNUAL_MEAN}
 #'\item{EPUarea}{Numeric scalar. Area in Km2}
 #'
+#'@importFrom magrittr "%>%"
+#'
 #'@export
 
 get_annual_PP <- function(yrs,epu) {

@@ -7,6 +7,7 @@
 #'
 #'@return dataframe.
 #'
+#'@importFrom magrittr "%>%"
 #'
 #'@export
 

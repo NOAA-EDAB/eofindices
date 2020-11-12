@@ -12,7 +12,7 @@
 #'\item{YEAR}{Year of the index}
 #'\item{INDEX}{Value of the index}
 #'
-#'
+#'@importFrom magrittr "%>%"
 #'
 #'@export
 

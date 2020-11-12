@@ -21,6 +21,8 @@
 #'
 #'J. S. Link, R. A. Watson, Global ecosystem overfishing: Clear delineation within real limits to production. Sci. Adv. 5, eaav0474 (2019). \url{DOI: 10.1126/sciadv.aav0474}
 #'
+#'@importFrom magrittr "%>%"
+#'
 #'@family Link Indices
 #'
 #'@export
