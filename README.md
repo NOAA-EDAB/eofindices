@@ -1,5 +1,8 @@
 # indexPPR
 
+![deploy to github pages](https://github.com/andybeet/indexPPR/workflows/deploy%20to%20github%20pages/badge.svg)
+![Install on windows](https://github.com/andybeet/indexPPR/workflows/Install%20on%20windows/badge.svg)
+
 A suite of tools used to calculate indices based on Trophic level.
 
 * Primary Production Required (PPR)<sup>1</sup>
