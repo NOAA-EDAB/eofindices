@@ -40,8 +40,10 @@
 
 
 <meta property="og:title" content="Calculate the Ryther index — calc_ryther_index" />
-<meta property="og:description" content="The Ryther index is composed of total catch presented on a unit area basis for an ecosystem
- using ideas found in Link &amp;amp; Watson (2019). See sources below." />
+<meta property="og:description" content="The Ryther index is composed of total catch presented on a unit area basis for an ecosystem.
+Theoretical estimates (Link &amp;amp; Watson, 2019), imply the index &quot;should probably be on the order of 0.3 - 1.1 mt km^-2 y^-1 with an extreme limit of 3 mt km^-2 y^-1.
+Empirically derived tipping points typically occur in fished ecosystems with total catches greater that 3 to 5 mt km^-2 y^-1 with expected system-wide MSYs on the
+ order of 1 to 3 mt km^-2 y^-1&quot;" />
 
 
 
@@ -128,26 +130,32 @@
     </div>
 
     <div class="ref-description">
-    <p>The Ryther index is composed of total catch presented on a unit area basis for an ecosystem
- using ideas found in Link &amp; Watson (2019). See sources below.</p>
+    <p>The Ryther index is composed of total catch presented on a unit area basis for an ecosystem.
+Theoretical estimates (Link &amp; Watson, 2019), imply the index "should probably be on the order of 0.3 - 1.1 mt km^-2 y^-1 with an extreme limit of 3 mt km^-2 y^-1.
+Empirically derived tipping points typically occur in fished ecosystems with total catches greater that 3 to 5 mt km^-2 y^-1 with expected system-wide MSYs on the
+ order of 1 to 3 mt km^-2 y^-1"</p>
     </div>
 
-    <pre class="usage"><span class='fu'>calc_ryther_index</span><span class='op'>(</span><span class='va'>catch</span>, <span class='va'>area</span>, catchField <span class='op'>=</span> <span class='st'>"totLand"</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>calc_ryther_index</span><span class='op'>(</span><span class='va'>catch</span>, <span class='va'>area</span>, yearFiled <span class='op'>=</span> <span class='st'>"YEAR"</span>, catchField <span class='op'>=</span> <span class='st'>"totLand"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>catch</th>
-      <td><p>dataframe. n x anything. Data containg the total catch in each year. Must contain two columns labelled YEAR,catch. Can be listed by species. <code>catch</code> must be in metric tonnes</p></td>
+      <td><p>Data frame. n x anything. Data containing the total catch in each year. Can be broken down by species. <code>catch</code> must be in metric tonnes</p></td>
     </tr>
     <tr>
       <th>area</th>
-      <td><p>Numeric scalar. Area of the region (km^2) in which catched come from.</p></td>
+      <td><p>Numeric scalar. Area of the region (km^2) in which catch comes from.</p></td>
     </tr>
     <tr>
       <th>catchField</th>
       <td><p>Character string. The name of the field in <code>catch</code> which contains the catch data.</p></td>
+    </tr>
+    <tr>
+      <th>yearField</th>
+      <td><p>Character string. The name of the field in <code>catch</code> which contains the Yearly data.</p></td>
     </tr>
     </table>
 
@@ -159,7 +167,7 @@
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Index units: metric tonnes km^-2 year^-1</p>
+    <p>The units of the index: metric tonnes km^-2 year^-1</p>
     <h2 class="hasAnchor" id="sources"><a class="anchor" href="#sources"></a>Sources</h2>
 
     

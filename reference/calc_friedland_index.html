@@ -41,7 +41,7 @@
 
 <meta property="og:title" content="Calculate the Friedland index — calc_friedland_index" />
 <meta property="og:description" content="The Friedland index is the ratio of total catches to chlorophyll in an ecosystem.
-Using ideas found in Link &amp;amp; Watson (2019). See sources below" />
+Link &amp;amp; Watson (2019), &quot;... propose a threshold of ~1 to delineate Ecosystem overfishing&quot;" />
 
 
 
@@ -129,12 +129,13 @@ Using ideas found in Link &amp;amp; Watson (2019). See sources below" />
 
     <div class="ref-description">
     <p>The Friedland index is the ratio of total catches to chlorophyll in an ecosystem.
-Using ideas found in Link &amp; Watson (2019). See sources below</p>
+Link &amp; Watson (2019), "... propose a threshold of ~1 to delineate Ecosystem overfishing"</p>
     </div>
 
     <pre class="usage"><span class='fu'>calc_friedland_index</span><span class='op'>(</span>
   <span class='va'>catch</span>,
   <span class='va'>chlorophyll</span>,
+  yearField <span class='op'>=</span> <span class='st'>"YEAR"</span>,
   catchField <span class='op'>=</span> <span class='st'>"totLand"</span>,
   chloroField <span class='op'>=</span> <span class='st'>"ANNUAL_MEAN"</span>
 <span class='op'>)</span></pre>
@@ -144,12 +145,15 @@ Using ideas found in Link &amp; Watson (2019). See sources below</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>catch</th>
-      <td><p>dataframe. n x anything. Data containg the total catch by each species in each year.
-Columns must be named YEAR,NESPP3,catch</p></td>
+      <td><p>Data Frame. n x anything. Data containing the total catch by each species in each year.</p></td>
     </tr>
     <tr>
       <th>chlorophyll</th>
-      <td><p>dataframe. n x anything.</p></td>
+      <td><p>Data frame. n x anything.</p></td>
+    </tr>
+    <tr>
+      <th>yearField</th>
+      <td><p>Character string. The name of the field in <code>catch</code> which contains the Yearly data.</p></td>
     </tr>
     <tr>
       <th>catchField</th>
@@ -167,6 +171,9 @@ Columns must be named YEAR,NESPP3,catch</p></td>
 <dt>YEAR</dt><dd><p>Year of the index</p></dd>
 <dt>INDEX</dt><dd><p>Value of the index</p></dd>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The units of the index: unitless</p>
     <h2 class="hasAnchor" id="sources"><a class="anchor" href="#sources"></a>Sources</h2>
 
     

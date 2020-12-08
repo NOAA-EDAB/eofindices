@@ -40,7 +40,8 @@
 
 
 <meta property="og:title" content="Calculate the Fogarty index — calc_fogarty_index" />
-<meta property="og:description" content="The Fogarty Index is the ratio of total catches to total primary productivity in an ecosystem." />
+<meta property="og:description" content="The Fogarty Index is the ratio of total catches to total primary productivity in an ecosystem.
+Link and Watson (2019) state &quot;.. Fogarty ration of 0.22 to  0.92 per mil, with an extreme limit of ~2.5 emerges from theoretically based limits coupled with estimates of global catches&quot;" />
 
 
 
@@ -127,12 +128,14 @@
     </div>
 
     <div class="ref-description">
-    <p>The Fogarty Index is the ratio of total catches to total primary productivity in an ecosystem.</p>
+    <p>The Fogarty Index is the ratio of total catches to total primary productivity in an ecosystem.
+Link and Watson (2019) state ".. Fogarty ration of 0.22 to  0.92 per mil, with an extreme limit of ~2.5 emerges from theoretically based limits coupled with estimates of global catches"</p>
     </div>
 
     <pre class="usage"><span class='fu'>calc_fogarty_index</span><span class='op'>(</span>
   <span class='va'>catch</span>,
   <span class='va'>primaryProduction</span>,
+  yearField <span class='op'>=</span> <span class='st'>"YEAR"</span>,
   catchField <span class='op'>=</span> <span class='st'>"totLand"</span>,
   ppField <span class='op'>=</span> <span class='st'>"ANNUAL_MEAN"</span>
 <span class='op'>)</span></pre>
@@ -142,12 +145,15 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>catch</th>
-      <td><p>dataframe. n x anything. Data containg the total catch by each species in each year.
-Columns must be named YEAR,NESPP3,catch</p></td>
+      <td><p>Data frame. n x anything. Data containing the total catch by each species in each year.</p></td>
     </tr>
     <tr>
       <th>primaryProduction</th>
-      <td><p>dataframe. n x anything.</p></td>
+      <td><p>Data frame. n x anything.</p></td>
+    </tr>
+    <tr>
+      <th>yearField</th>
+      <td><p>Character string. The name of the field in <code>catch</code> which contains the Yearly data.</p></td>
     </tr>
     <tr>
       <th>catchField</th>
@@ -167,7 +173,7 @@ Columns must be named YEAR,NESPP3,catch</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Using ideas found in Link &amp; Watson (2019). See sources below</p>
+    <p>The units of the index: 0/00</p>
     <h2 class="hasAnchor" id="sources"><a class="anchor" href="#sources"></a>Sources</h2>
 
     
