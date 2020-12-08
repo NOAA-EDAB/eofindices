@@ -7,15 +7,17 @@
 calc_friedland_index(
   catch,
   chlorophyll,
+  yearField = "YEAR",
   catchField = "totLand",
   chloroField = "ANNUAL_MEAN"
 )
 }
 \arguments{
-\item{catch}{dataframe. n x anything. Data containg the total catch by each species in each year.
-Columns must be named YEAR,NESPP3,catch}
+\item{catch}{Data Frame. n x anything. Data containing the total catch by each species in each year.}
 
-\item{chlorophyll}{dataframe. n x anything.}
+\item{chlorophyll}{Data frame. n x anything.}
+
+\item{yearField}{Character string. The name of the field in \code{catch} which contains the Yearly data.}
 
 \item{catchField}{Character string. The name of the field in \code{catch} which contains the catch data.}
 
@@ -29,7 +31,10 @@ Data frame:
 }
 \description{
 The Friedland index is the ratio of total catches to chlorophyll in an ecosystem.
-Using ideas found in Link & Watson (2019). See sources below
+Link & Watson (2019), "... propose a threshold of ~1 to delineate Ecosystem overfishing"
+}
+\details{
+The units of the index: unitless
 }
 \section{Sources}{
 

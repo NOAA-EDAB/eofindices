@@ -1,15 +1,15 @@
 #' Calculate the Friedland index
 #'
 #' The Friedland index is the ratio of total catches to chlorophyll in an ecosystem.
-#' Using ideas found in Link & Watson (2019). See sources below
+#' Link & Watson (2019), "... propose a threshold of ~1 to delineate Ecosystem overfishing"
 #'
+#' The units of the index: unitless
 #'
-#'@param catch dataframe. n x anything. Data containg the total catch by each species in each year.
-#'Columns must be named YEAR,NESPP3,catch
-#'@param chlorophyll dataframe. n x anything.
+#'@param catch Data Frame. n x anything. Data containing the total catch by each species in each year.
+#'@param chlorophyll Data frame. n x anything.
+#'@param yearField Character string. The name of the field in \code{catch} which contains the Yearly data.
 #'@param catchField Character string. The name of the field in \code{catch} which contains the catch data.
 #'@param chloroField Character string. The name of the field in \code{chlorophyll} which contains the ANNUAL_MEAN data.
-#'
 #'
 #'@return Data frame:
 #'
@@ -28,9 +28,10 @@
 
 ## need to generalize column names
 
-calc_friedland_index <- function(catch,chlorophyll,catchField ="totLand",chloroField ="ANNUAL_MEAN"){
+calc_friedland_index <- function(catch, chlorophyll, yearField="YEAR", catchField ="totLand",chloroField ="ANNUAL_MEAN"){
 
   #rename catch field
+  names(catch)[names(catch) == yearField] <- "YEAR"
   names(catch)[names(catch) == catchField] <- "catch"
   names(chlorophyll)[names(chlorophyll)==chloroField] <- "ANNUAL_MEAN"
 

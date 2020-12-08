@@ -7,15 +7,17 @@
 calc_fogarty_index(
   catch,
   primaryProduction,
+  yearField = "YEAR",
   catchField = "totLand",
   ppField = "ANNUAL_MEAN"
 )
 }
 \arguments{
-\item{catch}{dataframe. n x anything. Data containg the total catch by each species in each year.
-Columns must be named YEAR,NESPP3,catch}
+\item{catch}{Data frame. n x anything. Data containing the total catch by each species in each year.}
 
-\item{primaryProduction}{dataframe. n x anything.}
+\item{primaryProduction}{Data frame. n x anything.}
+
+\item{yearField}{Character string. The name of the field in \code{catch} which contains the Yearly data.}
 
 \item{catchField}{Character string. The name of the field in \code{catch} which contains the catch data.}
 
@@ -29,9 +31,10 @@ Data frame:
 }
 \description{
 The Fogarty Index is the ratio of total catches to total primary productivity in an ecosystem.
+Link and Watson (2019) state ".. Fogarty ration of 0.22 to  0.92 per mil, with an extreme limit of ~2.5 emerges from theoretically based limits coupled with estimates of global catches"
 }
 \details{
-Using ideas found in Link & Watson (2019). See sources below
+The units of the index: 0/00
 }
 \section{Sources}{
 

@@ -4,14 +4,16 @@
 \alias{calc_ryther_index}
 \title{Calculate the Ryther index}
 \usage{
-calc_ryther_index(catch, area, catchField = "totLand")
+calc_ryther_index(catch, area, yearFiled = "YEAR", catchField = "totLand")
 }
 \arguments{
-\item{catch}{dataframe. n x anything. Data containg the total catch in each year. Must contain two columns labelled YEAR,catch. Can be listed by species. \code{catch} must be in metric tonnes}
+\item{catch}{Data frame. n x anything. Data containing the total catch in each year. Can be broken down by species. \code{catch} must be in metric tonnes}
 
-\item{area}{Numeric scalar. Area of the region (km^2) in which catched come from.}
+\item{area}{Numeric scalar. Area of the region (km^2) in which catch comes from.}
 
 \item{catchField}{Character string. The name of the field in \code{catch} which contains the catch data.}
+
+\item{yearField}{Character string. The name of the field in \code{catch} which contains the Yearly data.}
 }
 \value{
 Data frame:
@@ -20,11 +22,13 @@ Data frame:
 \item{INDEX}{Value of the index}
 }
 \description{
-The Ryther index is composed of total catch presented on a unit area basis for an ecosystem
- using ideas found in Link & Watson (2019). See sources below.
+The Ryther index is composed of total catch presented on a unit area basis for an ecosystem.
+Theoretical estimates (Link & Watson, 2019), imply the index "should probably be on the order of 0.3 - 1.1 mt km^-2 y^-1 with an extreme limit of 3 mt km^-2 y^-1.
+Empirically derived tipping points typically occur in fished ecosystems with total catches greater that 3 to 5 mt km^-2 y^-1 with expected system-wide MSYs on the
+ order of 1 to 3 mt km^-2 y^-1"
 }
 \details{
-Index units: metric tonnes km^-2 year^-1
+The units of the index: metric tonnes km^-2 year^-1
 }
 \section{Sources}{
 

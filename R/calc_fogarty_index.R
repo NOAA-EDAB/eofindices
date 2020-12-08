@@ -1,13 +1,14 @@
 #' Calculate the Fogarty index
 #'
 #' The Fogarty Index is the ratio of total catches to total primary productivity in an ecosystem.
+#' Link and Watson (2019) state ".. Fogarty ration of 0.22 to  0.92 per mil, with an extreme limit of ~2.5 emerges from theoretically based limits coupled with estimates of global catches"
 #'
-#' Using ideas found in Link & Watson (2019). See sources below
+#' The units of the index: 0/00
 #'
 #'
-#'@param catch dataframe. n x anything. Data containg the total catch by each species in each year.
-#'Columns must be named YEAR,NESPP3,catch
-#'@param primaryProduction dataframe. n x anything.
+#'@param catch Data frame. n x anything. Data containing the total catch by each species in each year.
+#'@param primaryProduction Data frame. n x anything.
+#'@param yearField Character string. The name of the field in \code{catch} which contains the Yearly data.
 #'@param catchField Character string. The name of the field in \code{catch} which contains the catch data.
 #'@param ppField Character string. The name of the field in \code{primaryProduction} which contains the ANNUAL_MEAN data.
 #'
@@ -29,9 +30,10 @@
 
 ## need to generalize column names
 
-calc_fogarty_index <- function(catch,primaryProduction,catchField ="totLand",ppField ="ANNUAL_MEAN"){
+calc_fogarty_index <- function(catch, primaryProduction, yearField="YEAR", catchField ="totLand", ppField ="ANNUAL_MEAN"){
 
   #rename catch field
+  names(catch)[names(catch) == yearField] <- "YEAR"
   names(catch)[names(catch) == catchField] <- "catch"
   names(primaryProduction)[names(primaryProduction)==ppField] <- "ANNUAL_MEAN"
 
