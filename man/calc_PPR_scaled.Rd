@@ -2,18 +2,28 @@
 % Please edit documentation in R/calc_PPR_scaled.R
 \name{calc_PPR_scaled}
 \alias{calc_PPR_scaled}
-\title{Scale PPR index by toal production}
+\title{Scale PPR index by total primary production}
 \usage{
 calc_PPR_scaled(PPR, PP, units = "m")
 }
 \arguments{
-\item{PPR}{dataframe (nx2). Primary production required index over time. Two columns YEAR and INDEX}
+\item{PPR}{Data frame (n x 2). Primary production required index over time. Two columns YEAR and INDEX}
 
-\item{PP}{list.}
+\item{PP}{List. First element labeled \code{PP} is a Data frame of size (n x 2). Columns YEAR, ANNUAL_MEAN. Second element labeled \code{EPUarea} is the area of the region}
+
+\item{units}{Character. Describes the units of \code{PP$EPUarea}}
 }
 \value{
-dataframe.
+Data frame (n x 7)
+\item{YEAR}{Year of scaled index}
+\item{scaled}{PPR index scaled to same units as PP}
+\item{SCALEDINDEX}{Ratio of PPR:PP}
 }
 \description{
-Scale PPR index by toal production
+Total primary production (PP) has units gC m^-1 d^-1. catch has units gC year^-1.
+Catch is converted to same units as PP.
+The ratio of PPR:PP is then returned
+}
+\details{
+Units: Percentage
 }

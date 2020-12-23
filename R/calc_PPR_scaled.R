@@ -1,11 +1,21 @@
-#' Scale PPR index by toal production
+#' Scale PPR index by total primary production
+#'
+#' Total primary production (PP) has units gC m^-1 d^-1. catch has units gC year^-1.
+#' Catch is converted to same units as PP.
+#' The ratio of PPR:PP is then returned
+#'
+#' Units: Percentage
 #'
 #'
+#'@param PPR Data frame (n x 2). Primary production required index over time. Two columns YEAR and INDEX
+#'@param PP List. First element labeled \code{PP} is a Data frame of size (n x 2). Columns YEAR, ANNUAL_MEAN. Second element labeled \code{EPUarea} is the area of the region
+#'@param units Character. Describes the units of \code{PP$EPUarea}
 #'
-#'@param PPR dataframe (nx2). Primary production required index over time. Two columns YEAR and INDEX
-#'@param PP list.
 #'
-#'@return dataframe.
+#'@return Data frame (n x 7)
+#'\item{YEAR}{Year of scaled index}
+#'\item{scaled}{PPR index scaled to same units as PP}
+#'\item{SCALEDINDEX}{Ratio of PPR:PP}
 #'
 #'@importFrom magrittr "%>%"
 #'
