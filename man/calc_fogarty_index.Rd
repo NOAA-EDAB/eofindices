@@ -13,9 +13,9 @@ calc_fogarty_index(
 )
 }
 \arguments{
-\item{catch}{Data frame. n x anything. Data containing the total catch by each species in each year.}
+\item{catch}{Data frame. n x anything. Data containing the total catch (g year^-1) by each species in each year.}
 
-\item{primaryProduction}{Data frame. n x anything.}
+\item{primaryProduction}{Data frame. n x anything. (gC m^-2 d^-1)}
 
 \item{yearField}{Character string. The name of the field in \code{catch} which contains the Yearly data.}
 
