@@ -3,7 +3,7 @@
 #' Species that comprise the top x% of landings for each year are extracted.
 #'
 #'
-#'@param channel DBI object. Connection object to database "sole"
+#'@param channel DBI object. Connection object to database
 #'@param landings dataframe (n x r). r >= 3. Must have at least three columns (one named YEAR) The other two necessary columns numst contain Species codes and Catch (units)
 #'@param threshold numeric scalar. Determining the fraction of landings to be represented. Eg. threshold = 0.8
 #'would find the fewest number of species (ordered by landings) that comprise 80\% of landings.
