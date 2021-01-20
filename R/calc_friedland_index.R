@@ -6,7 +6,7 @@
 #' The units of the index: unitless
 #'
 #'@param catch Data Frame. n x anything. Data containing the total catch by each species in each year.
-#'@param chlorophyll Data frame. n x anything.
+#'@param chlorophyll Data frame. n x anything. Same units as catch
 #'@param yearField Character string. The name of the field in \code{catch} which contains the Yearly data.
 #'@param catchField Character string. The name of the field in \code{catch} which contains the catch data.
 #'@param chloroField Character string. The name of the field in \code{chlorophyll} which contains the ANNUAL_MEAN data.
@@ -43,7 +43,7 @@ calc_friedland_index <- function(catch, chlorophyll, yearField="YEAR", catchFiel
   friedland <- totCatch %>% dplyr::mutate(Index=totalCatch/ANNUAL_MEAN) %>%
     dplyr::select(YEAR,Index)
 
-  return(friendland)
+  return(friedland)
 
 
 }

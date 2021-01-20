@@ -34,7 +34,7 @@ The Fogarty Index is the ratio of total catches to total primary productivity in
 Link and Watson (2019) state ".. Fogarty ration of 0.22 to  0.92 per mil, with an extreme limit of ~2.5 emerges from theoretically based limits coupled with estimates of global catches"
 }
 \details{
-The units of the index: 0/00
+The units of the index: unitless
 }
 \section{Sources}{
 

@@ -15,7 +15,7 @@ calc_friedland_index(
 \arguments{
 \item{catch}{Data Frame. n x anything. Data containing the total catch by each species in each year.}
 
-\item{chlorophyll}{Data frame. n x anything.}
+\item{chlorophyll}{Data frame. n x anything. Same units as catch}
 
 \item{yearField}{Character string. The name of the field in \code{catch} which contains the Yearly data.}
 

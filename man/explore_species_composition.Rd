@@ -15,7 +15,7 @@ explore_species_composition(
 )
 }
 \arguments{
-\item{channel}{DBI object. Connection object to database "sole"}
+\item{channel}{DBI object. Connection object to database}
 
 \item{landings}{dataframe (n x r). r >= 3. Must have at least three columns (one named YEAR) The other two necessary columns numst contain Species codes and Catch (units)}
 
