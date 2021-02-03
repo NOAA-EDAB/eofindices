@@ -7,7 +7,7 @@ Authors@R: c(person("Andy", "Beet", email = "andrew.beet@noaa.gov", role = c("au
 Maintainer: Andy Beet <andrew.beet@noaa.gov>
 Description: Primary Production Required, an index used to measure system health
     in an ecosytem. The amount of primary reduction required to account for a given level of catch
-License: What license is it under?
+License: file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: 
