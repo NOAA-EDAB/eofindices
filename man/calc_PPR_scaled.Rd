@@ -4,7 +4,7 @@
 \alias{calc_PPR_scaled}
 \title{Scale PPR index by total primary production}
 \usage{
-calc_PPR_scaled(PPR, PP, units = "m")
+calc_PPR_scaled(PPR, PP, units = "m", col = "Constant")
 }
 \arguments{
 \item{PPR}{Data frame (n x 2). Primary production required index over time. Two columns YEAR and INDEX}
@@ -12,6 +12,8 @@ calc_PPR_scaled(PPR, PP, units = "m")
 \item{PP}{List. First element labeled \code{PP} is a Data frame of size (n x 2). Columns YEAR, ANNUAL_MEAN. Second element labeled \code{EPUarea} is the area of the region}
 
 \item{units}{Character. Describes the units of \code{PP$EPUarea}}
+
+\item{col}{Character String. Name of column holding the PP data used to scale}
 }
 \value{
 Data frame (n x 7)
