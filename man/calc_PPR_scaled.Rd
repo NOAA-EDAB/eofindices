@@ -4,26 +4,34 @@
 \alias{calc_PPR_scaled}
 \title{Scale PPR index by total primary production}
 \usage{
-calc_PPR_scaled(PPR, PP, units = "m", col = "Constant")
+calc_PPR_scaled(
+  PPR,
+  PP,
+  pprField = "INDEX",
+  yearFieldPPR = "YEAR",
+  ppField = "ANNUAL_MTON",
+  yearFieldPP = "YEAR"
+)
 }
 \arguments{
 \item{PPR}{Data frame (n x 2). Primary production required index over time. Two columns YEAR and INDEX}
 
 \item{PP}{List. First element labeled \code{PP} is a Data frame of size (n x 2). Columns YEAR, ANNUAL_MEAN. Second element labeled \code{EPUarea} is the area of the region}
 
-\item{units}{Character. Describes the units of \code{PP$EPUarea}}
+\item{yearFieldPPR}{Character string. The name of the field in \code{PPR} which contains the Year.}
 
-\item{col}{Character String. Name of column holding the PP data used to scale}
+\item{ppField}{Character string. The name of the field in \code{PP} which contains the PP data.}
+
+\item{yearFieldPP}{Character string. The name of the field in \code{PP} which contains the Year.}
 }
 \value{
 Data frame (n x 7)
 \item{YEAR}{Year of scaled index}
-\item{scaled}{PPR index scaled to same units as PP}
 \item{SCALEDINDEX}{Ratio of PPR:PP}
 }
 \description{
-Total primary production (PP) has units gC m^-1 d^-1. catch has units gC year^-1.
-Catch is converted to same units as PP.
+Total primary production (PP) should be in units mtC year^-1, since
+PPR has units mtC year^-1.
 The ratio of PPR:PP is then returned
 }
 \details{

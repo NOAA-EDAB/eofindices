@@ -6,22 +6,25 @@
 \usage{
 calc_fogarty_index(
   catch,
-  primaryProduction,
-  yearField = "YEAR",
+  PP,
+  yearFieldCatch = "YEAR",
   catchField = "totLand",
-  ppField = "ANNUAL_MEAN"
+  ppField = "ANNUAL_MEAN",
+  yearFieldPP = "YEAR"
 )
 }
 \arguments{
-\item{catch}{Data frame. n x anything. Data containing the total catch (g year^-1) by each species in each year.}
+\item{catch}{Data frame. Data containing the total catch (mt/region/year) by each species in each year.}
 
-\item{primaryProduction}{Data frame. n x anything. (gC m^-2 d^-1)}
+\item{PP}{Data frame. Data containing Primary Production same units as catch (but in Carbon)}
 
-\item{yearField}{Character string. The name of the field in \code{catch} which contains the Yearly data.}
+\item{yearFieldCatch}{Character string. The name of the field in \code{catch} which contains the Year.}
 
 \item{catchField}{Character string. The name of the field in \code{catch} which contains the catch data.}
 
-\item{ppField}{Character string. The name of the field in \code{primaryProduction} which contains the ANNUAL_MEAN data.}
+\item{ppField}{Character string. The name of the field in \code{PP} which contains the ANNUAL_MEAN data.}
+
+\item{yearFieldPP}{Character string. The name of the field in \code{PP} which contains the Year.}
 }
 \value{
 Data frame:

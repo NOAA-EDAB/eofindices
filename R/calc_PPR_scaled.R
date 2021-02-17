@@ -11,7 +11,7 @@
 #'@param PP List. First element labeled \code{PP} is a Data frame of size (n x 2). Columns YEAR, ANNUAL_MEAN. Second element labeled \code{EPUarea} is the area of the region
 #'@param yearFieldPPR Character string. The name of the field in \code{PPR} which contains the Year.
 #'@param yearFieldPP Character string. The name of the field in \code{PP} which contains the Year.
-#'@param PPField Character string. The name of the field in \code{PP} which contains the PP data.
+#'@param ppField Character string. The name of the field in \code{PP} which contains the PP data.
 #'
 #'
 #'@return Data frame (n x 7)
@@ -23,17 +23,18 @@
 #'@export
 
 
-calc_PPR_scaled <- function(PPR,PP,yearFieldPPR="YEAR",PPField = "ANNUAL_MTON",yearFieldPP="YEAR") {
+calc_PPR_scaled <- function(PPR,PP,pprField="INDEX",yearFieldPPR="YEAR",ppField = "ANNUAL_MTON",yearFieldPP="YEAR") {
 
   names(PPR)[names(PPR) == yearFieldPPR] <- "YEAR"
-  names(catch)[names(catch) == catchField] <- "catch"
+  names(PPR)[names(PPR) == pprField] <- "INDEX"
   names(PP)[names(PP) == yearFieldPP] <- "YEAR"
-  names(primaryProduction)[names(primaryProduction) == ppField] <- "ANNUAL_MTON"
+  names(PP)[names(PP) == ppField] <- "ANNUAL_MTON"
 
 
-
+  # join data frames
   joinedTab <- dplyr::left_join(PP,PPR,by = "YEAR")
 
+  # scale the index
   scaledIndex <- joinedTab %>%
     dplyr::mutate(SCALEDINDEX = INDEX/ANNUAL_MTON)
 
