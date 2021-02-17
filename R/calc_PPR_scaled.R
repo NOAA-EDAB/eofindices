@@ -9,8 +9,9 @@
 #'
 #'@param PPR Data frame (n x 2). Primary production required index over time. Two columns YEAR and INDEX
 #'@param PP List. First element labeled \code{PP} is a Data frame of size (n x 2). Columns YEAR, ANNUAL_MEAN. Second element labeled \code{EPUarea} is the area of the region
-#'@param units Character. Describes the units of \code{PP$EPUarea}
-#'@param col Character String. Name of column holding the PP data used to scale
+#'@param yearFieldPPR Character string. The name of the field in \code{PPR} which contains the Year.
+#'@param yearFieldPP Character string. The name of the field in \code{PP} which contains the Year.
+#'@param PPField Character string. The name of the field in \code{PP} which contains the PP data.
 #'
 #'
 #'@return Data frame (n x 7)
@@ -23,19 +24,19 @@
 #'@export
 
 
-calc_PPR_scaled <- function(PPR,PP,units="m",col="Constant") {
+calc_PPR_scaled <- function(PPR,PP,yearFieldPPR="YEAR",PPField = "ANNUAL_MTON",yearFieldPP="YEAR") {
 
-  if (tolower(units)=="m") { # convert from km2 to m2 (multiply by 10^6)
-    epuAreaM2 <- PP$EPUarea*1000000
-  }
+  names(PPR)[names(PPR) == yearFieldPPR] <- "YEAR"
+  names(catch)[names(catch) == catchField] <- "catch"
+  names(PP)[names(PP) == yearFieldPP] <- "YEAR"
+  names(primaryProduction)[names(primaryProduction) == ppField] <- "ANNUAL_MTON"
 
-  PrimProd <- PP[[col]]
 
-  joinedTab <- dplyr::left_join(PrimProd,PPR,by = "YEAR")
+
+  joinedTab <- dplyr::left_join(PP,PPR,by = "YEAR")
 
   scaledIndex <- joinedTab %>%
-    dplyr::mutate(scaled = INDEX/(365*epuAreaM2)) %>%
-    dplyr::mutate(SCALEDINDEX = scaled/ANNUAL_MEAN)
+    dplyr::mutate(SCALEDINDEX = INDEX/ANNUAL_MTON)
 
   return(scaledIndex)
 
