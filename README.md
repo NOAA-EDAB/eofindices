@@ -14,7 +14,6 @@ A suite of tools used to calculate indices based on Trophic level.
 
 * Fogarty Index<sup>2</sup>
 
-* Friedland Index <sup>2</sup>
 
 ## Installation
 
