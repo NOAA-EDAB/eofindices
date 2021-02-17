@@ -1,8 +1,8 @@
-# indexPPR
+# eofindices
 
-![deploy to github pages](https://github.com/andybeet/indexPPR/workflows/deploy%20to%20github%20pages/badge.svg)
-![Install on windows](https://github.com/andybeet/indexPPR/workflows/Install%20on%20windows/badge.svg)
-![gitleaks](https://github.com/NOAA-EDAB/LeMANS/workflows/gitleaks/badge.svg)
+![deploy to github pages](https://github.com/andybeet/eofindices/workflows/deploy%20to%20github%20pages/badge.svg)
+![Install on windows](https://github.com/andybeet/eofindices/workflows/Install%20on%20windows/badge.svg)
+![gitleaks](https://github.com/andybeet/eofindices/workflows/gitleaks/badge.svg)
 
 A suite of tools used to calculate indices based on Trophic level.
 
@@ -19,14 +19,14 @@ A suite of tools used to calculate indices based on Trophic level.
 ## Installation
 
 ``` r
-remotes::install_github("andybeet/indexPPR")
+remotes::install_github("NOAA-EDAB/eofindices")
 ```
 
 ## Usage
 
-* See the [vignette](https://andybeet.github.io/indexPPR/articles/indexPPR.html) for a walkthrough of the functions
-* See the [worked example](https://andybeet.github.io/indexPPR/articles/workedExample.html) for details on how to use this package.
-* or the [Tech doc](https://noaa-edab.github.io/tech-doc/primary-production-required.html) for overview of the methodology
+* See the [vignette](https://NOAA-EDAB.github.io/eofindices/articles/eofindices.html) for a walkthrough of the functions
+* See the [worked example](https://NOAA-EDAB.github.io/eofindices/articles/workedExample.html) for details on how to use this package.
+* or the [Tech doc](https://NOAA-EDAB.github.io/tech-doc/primary-production-required.html) for overview of the methodology
 
 
 Footnote:

@@ -64,7 +64,7 @@ lookupTable <- lookup$data
 fishbaseTable <- lookupTable %>% dplyr::select(COMMON_NAME,SCIENTIFIC_NAME,NESPP3) %>%
   dplyr::distinct()
 # access fishbase for Trophic level data
-callfishbase <- indexPPR::get_trophic_level(fishbaseTable)
+callfishbase <- eofindices::get_trophic_level(fishbaseTable)
 fishbaseTable <- callfishbase$fishbaseTable
 
 ```
@@ -85,7 +85,7 @@ for (iy in yrs) { #loop
   annualLandings <- landings %>% dplyr::filter(YEAR == iy, !(NESPP3 %in% c("526","529","817","832","806"))) # OTHER FISH, ROCKWEED, SEAWEED, 806 = sea cucumbers
   if ((dim(annualLandings)[1]) == 0) {next}
   # pick species that make up top x % of landings
-  topSpecies <- indexPPR::select_top_x_percent(annualLandings$NESPP3,annualLandings$totLand,threshold)
+  topSpecies <- eofindices::select_top_x_percent(annualLandings$NESPP3,annualLandings$totLand,threshold)
   nSpeciesTop <- dim(topSpecies)[1]
   names(nSpeciesTop) <- "nSpecies"
   topTable <- dplyr::left_join(topSpecies,fishbaseTable,by=c("NESPP3"))
@@ -100,8 +100,8 @@ for (iy in yrs) { #loop
   
   # Calculate the PPR & MTL indices------------------------------------------
   ### NOTE: We do not have discards in calculation, just landings
-  ppr_index <- indexPPR::calc_ppr_index(landingsTimeSeries,topTable,transferEff)
-  mtl_index <- indexPPR::calc_mtl_index(landingsTimeSeries,topTable)  
+  ppr_index <- eofindices::calc_ppr_index(landingsTimeSeries,topTable,transferEff)
+  mtl_index <- eofindices::calc_mtl_index(landingsTimeSeries,topTable)  
   # concatenate  
   PPR <- rbind(PPR,c(ppr_index,nSpeciesTop,landingsTop))  
   MTL <- rbind(MTL,c(mtl_index,nSpeciesTop,landingsTop))
@@ -112,8 +112,8 @@ for (iy in yrs) { #loop
 Primary production info is obtained and the PPR index is scaled by the annual PP to create an index representing proportion of PPR. The indices are shortened to the time frame represented by the PP data
 
 ```{r scaledppr, eval = F}
-PP <- indexPPR::get_annual_PP(yrs,epu)
-scaled <- indexPPR::calc_PPR_scaled(PPR,PP)
+PP <- eofindices::get_annual_PP(yrs,epu)
+scaled <- eofindices::calc_PPR_scaled(PPR,PP)
 
 MTL <- MTL %>% dplyr::filter(YEAR %in% scaled$YEAR)
 
@@ -122,9 +122,9 @@ MTL <- MTL %>% dplyr::filter(YEAR %in% scaled$YEAR)
 The indices are then plotted
 
 ```{r plotppr, eval = F}
-indexPPR::plot_pp_index(scaled,epu)
-indexPPR::plot_ppr_index(scaled,epu)
-indexPPR::plot_mtl_index(MTL,epu)
+eofindices::plot_pp_index(scaled,epu)
+eofindices::plot_ppr_index(scaled,epu)
+eofindices::plot_mtl_index(MTL,epu)
 
 ```
 
@@ -147,7 +147,7 @@ landings <- comland %>% dplyr::filter(EPU == epu)  %>% # US and NAFO landings
   dplyr::summarise(totLand = sum(SPPLIVMT)) %>% 
   dplyr::arrange(YEAR,NESPP3)
 
-  speciesComp <- indexPPR::explore_species_composition(channel,landings,as.numeric(threshold),catchCN="totLand")
+  speciesComp <- eofindices::explore_species_composition(channel,landings,as.numeric(threshold),catchCN="totLand")
   # hard code missing species names
   ind <- speciesComp$data$NESPP3 == "524"
   speciesComp$data$COMMON_NAME[ind] <- "OTHER GROUNDFISH"

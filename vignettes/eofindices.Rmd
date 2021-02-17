@@ -1,8 +1,8 @@
 ---
-title: "Introduction: indexPPR"
+title: "Introduction: eofindices"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introduction: indexPPR}
+  %\VignetteIndexEntry{Introduction: eofindices}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(indexPPR)
+library(eofindices)
 ```
 A suite of tools used to calculate indices based on Trophic level.
 
@@ -37,12 +37,12 @@ Note: Scientific names must be in the format: Genus species. eg. Scomber scombru
 You can use the `captialize_first_letter` function to achieve this
 
 ``` {r}
-indexPPR::capitalize_first_letter("SCOMBER SCOMBRUS")
+eofindices::capitalize_first_letter("SCOMBER SCOMBRUS")
 ```
 
 ### Accessing rfishbase
 
-Trophic level information is stored in [fishbase](http://fishbase.de) and can be easily obtained using the package `rfishbase`, part of the rOpenSci project - open tools for open science. This is achievd using the function `indpexPPR::get_trophic_level`
+Trophic level information is stored in [fishbase](http://fishbase.de) and can be easily obtained using the package `rfishbase`, part of the rOpenSci project - open tools for open science. This is achievd using the function `eofindices::get_trophic_level`
 
 
 ```{r, eval=FALSE}
@@ -52,7 +52,7 @@ speciesInfo <- dataFrame %>%
   dplyr::distinct()
 
 # get trophic level information from rfishbase
-fishbaseTable <- indexPPR::get_trophic_level(speciesInfo)
+fishbaseTable <- eofindices::get_trophic_level(speciesInfo)
 
 # now join the trophic level info with your dataFrame
 newDataFrame <- dplyr::left_join(dataFrame,fishbaseTable,by=c("NESPP3"))
