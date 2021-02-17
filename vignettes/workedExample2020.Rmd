@@ -1,5 +1,5 @@
 ---
-title: "Worked example - SOE 2020 +"
+title: "Worked example - SOE 2020"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Worked example - SOE 2020 +}
@@ -11,6 +11,9 @@ vignette: >
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+*Note: The 2020 State of the Ecosystem report uses [V0.1.0](https://github.com/NOAA-EDAB/andybeet/eofindices/releases/tag/v0.1.0). The following example is incompatible with future package releases*
+
 
 This worked example will result in plots of the following for a specified EPU:
 
