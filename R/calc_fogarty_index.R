@@ -7,11 +7,11 @@
 #'
 #'
 #'@param catch Data frame. Data containing the total catch (mt/region/year) by each species in each year.
-#'@param primaryProduction Data frame. same units as catch (but in Carbon)
+#'@param PP Data frame. Data containing Primary Production same units as catch (but in Carbon)
 #'@param yearFieldCatch Character string. The name of the field in \code{catch} which contains the Year.
 #'@param catchField Character string. The name of the field in \code{catch} which contains the catch data.
-#'@param yearFieldPP Character string. The name of the field in \code{primaryProduction} which contains the Year.
-#'@param ppField Character string. The name of the field in \code{primaryProduction} which contains the ANNUAL_MEAN data.
+#'@param yearFieldPP Character string. The name of the field in \code{PP} which contains the Year.
+#'@param ppField Character string. The name of the field in \code{PP} which contains the ANNUAL_MEAN data.
 #'
 #'
 #'@return Data frame:
@@ -31,20 +31,20 @@
 
 ## need to generalize column names
 
-calc_fogarty_index <- function(catch, primaryProduction, yearFieldCatch="YEAR", catchField ="totLand", ppField ="ANNUAL_MEAN",yearFieldPP="YEAR"){
+calc_fogarty_index <- function(catch, PP, yearFieldCatch="YEAR", catchField ="totLand", ppField ="ANNUAL_MEAN",yearFieldPP="YEAR"){
 
   #rename catch field
   names(catch)[names(catch) == yearFieldCatch] <- "YEAR"
   names(catch)[names(catch) == catchField] <- "catch"
-  names(primaryProduction)[names(primaryProduction) == yearFieldPP] <- "YEAR"
-  names(primaryProduction)[names(primaryProduction) == ppField] <- "ANNUAL_MEAN"
+  names(PP)[names(PP) == yearFieldPP] <- "YEAR"
+  names(PP)[names(PP) == ppField] <- "ANNUAL_MEAN"
 
   # convert gC m-2 d-1 to gC year-1 for the EPU
   #totPP <- primaryProduction$PP %>%
   #  dplyr::mutate(totalPP = ANNUAL_MEAN * (1000^2) * primaryProduction$EPUarea * 365)
 
   # rename PP field
-  totPP <- primaryProduction$PP %>%
+  totPP <- PP$PP %>%
     dplyr::mutate(totalPP = ANNUAL_MTON)
 
 
