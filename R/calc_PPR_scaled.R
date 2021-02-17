@@ -1,7 +1,7 @@
 #' Scale PPR index by total primary production
 #'
-#' Total primary production (PP) has units gC m^-1 d^-1. catch has units gC year^-1.
-#' Catch is converted to same units as PP.
+#' Total primary production (PP) should be in units mtC year^-1, since
+#' PPR has units mtC year^-1.
 #' The ratio of PPR:PP is then returned
 #'
 #' Units: Percentage
@@ -16,7 +16,6 @@
 #'
 #'@return Data frame (n x 7)
 #'\item{YEAR}{Year of scaled index}
-#'\item{scaled}{PPR index scaled to same units as PP}
 #'\item{SCALEDINDEX}{Ratio of PPR:PP}
 #'
 #'@importFrom magrittr "%>%"
