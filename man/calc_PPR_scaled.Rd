@@ -18,6 +18,8 @@ calc_PPR_scaled(
 
 \item{PP}{List. First element labeled \code{PP} is a Data frame of size (n x 2). Columns YEAR, ANNUAL_MEAN. Second element labeled \code{EPUarea} is the area of the region}
 
+\item{pprField}{Character string. The name of the field in \code{PPR} which contains the PPR index data.}
+
 \item{yearFieldPPR}{Character string. The name of the field in \code{PPR} which contains the Year.}
 
 \item{ppField}{Character string. The name of the field in \code{PP} which contains the PP data.}

@@ -38,7 +38,6 @@ J. S. Link, R. A. Watson, Global ecosystem overfishing: Clear delineation within
 
 \seealso{
 Other Link Indices: 
-\code{\link{calc_fogarty_index}()},
-\code{\link{calc_friedland_index}()}
+\code{\link{calc_fogarty_index}()}
 }
 \concept{Link Indices}
