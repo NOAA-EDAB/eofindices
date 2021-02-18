@@ -1,0 +1,134 @@
+---
+title: "Current Indices"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Current Indices}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+Year <- 2021
+```
+
+All plots were for the $Year$ SOE report
+
+## Mid Atlantic Bight
+
+Primary Production Required
+
+```{r ppr1, echo = F, eval = T, out.width='80%'}
+knitr::include_graphics(paste0("figures/",Year,"/PPR-MAB-0_80.png"))
+```
+
+Mean Trophic Level
+
+```{r mtl1, echo = F, eval = T, out.width='80%'}
+knitr::include_graphics(paste0("figures/",Year,"/MTL-MAB-0_80.png"))
+```
+
+Primary Production
+
+```{r pp1, echo = F, eval = T, out.width='80%'}
+knitr::include_graphics(paste0("figures/",Year,"/PP-MAB.png"))
+```
+
+Composition of Landings
+
+```{r comp1, echo = F, eval = T, out.width='80%'}
+knitr::include_graphics(paste0("figures/",Year,"/composition-MAB-0_80.png"))
+```
+
+Fogarty Index
+
+```{r fog1, echo = F, eval = T, out.width='80%'}
+knitr::include_graphics(paste0("figures/",Year,"/fogarty-index-Constant-MAB.png"))
+```
+
+
+Ryther Index
+
+```{r ry1, echo = F, eval = T, out.width='80%'}
+knitr::include_graphics(paste0("figures/",Year,"/ryther-index-MAB.png"))
+```
+
+## Georges Bank
+
+Primary Production Required
+
+```{r ppr2, echo = F, eval = T, out.width='80%'}
+knitr::include_graphics(paste0("figures/",Year,"/PPR-GB-0_80.png"))
+```
+
+Mean Trophic Level
+
+```{r mtl2, echo = F, eval = T, out.width='80%'}
+knitr::include_graphics(paste0("figures/",Year,"/MTL-GB-0_80.png"))
+```
+
+Primary Production
+
+```{r pp2, echo = F, eval = T, out.width='80%'}
+knitr::include_graphics(paste0("figures/",Year,"/PP-GB.png"))
+```
+
+Composition of Landings
+
+```{r comp2, echo = F, eval = T, out.width='80%'}
+knitr::include_graphics(paste0("figures/",Year,"/composition-GB-0_80.png"))
+```
+
+Fogarty Index
+
+```{r fog2, echo = F, eval = T, out.width='80%'}
+knitr::include_graphics(paste0("figures/",Year,"/fogarty-index-Constant-GB.png"))
+```
+
+
+Ryther Index
+
+```{r ry2, echo = F, eval = T, out.width='80%'}
+knitr::include_graphics(paste0("figures/",Year,"/ryther-index-GB.png"))
+```
+
+## Gulf of Maine
+
+Primary Production Required
+
+```{r ppr3, echo = F, eval = T, out.width='80%'}
+knitr::include_graphics(paste0("figures/",Year,"/PPR-GOM-0_80.png"))
+```
+
+Mean Trophic Level
+
+```{r mtl3, echo = F, eval = T, out.width='80%'}
+knitr::include_graphics(paste0("figures/",Year,"/MTL-GOM-0_80.png"))
+```
+
+Primary Production
+
+```{r pp3, echo = F, eval = T, out.width='80%'}
+knitr::include_graphics(paste0("figures/",Year,"/PP-GOM.png"))
+```
+
+Composition of Landings
+
+```{r comp3, echo = F, eval = T, out.width='80%'}
+knitr::include_graphics(paste0("figures/",Year,"/composition-GOM-0_80.png"))
+```
+
+Fogarty Index
+
+```{r fog3, echo = F, eval = T, out.width='80%'}
+knitr::include_graphics(paste0("figures/",Year,"/fogarty-index-Constant-GOM.png"))
+```
+
+
+Ryther Index
+
+```{r ry3, echo = F, eval = T, out.width='80%'}
+knitr::include_graphics(paste0("figures/",Year,"/ryther-index-GOM.png"))
+```
+
