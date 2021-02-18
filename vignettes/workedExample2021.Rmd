@@ -1,8 +1,8 @@
 ---
-title: "Worked example - SOE 2020"
+title: "Worked example - SOE 2021"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Worked example - SOE 2020}
+  %\VignetteIndexEntry{Worked example - SOE 2021}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 
@@ -12,17 +12,17 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-*Note: The 2020 State of the Ecosystem report uses [V0.1.0](https://github.com/NOAA-EDAB/andybeet/eofindices/releases/tag/v0.1.0). The following example is incompatible with future package releases*
 
+This worked example will result in the following figures (for a specified EPU):
 
-This worked example will result in plots of the following for a specified EPU:
-
-* scaled PPR index
+* Primary Production Required index (scaled by Primary Production)
+* Fogarty Index (measure of ecosystem overfishing) 
+* Ryther Index (measure of ecosystem overfishing) 
 * Mean trophic level
 * Annual primary production
 * species composition over time
 
-The commercial landings data are confidential and are not bundled with this package. This example assumes you have access the the appropriate data base and have already pulled the data and stored it in a dataframe called `comland`. See package `comlandr` for details.
+The commercial landings data are confidential and are not bundled with this package. This example assumes you have access the the appropriate data base and have already pulled the data and stored it in a dataframe called `comland`. See package [`comlandr](https://github.com/NOAA-EDAB/comlandr) for details.
 
 Initial values for the following are needed: 
 
@@ -43,8 +43,6 @@ landings <- comland %>% dplyr::filter(EPU == epu)  %>% # US and NAFO landings
   dplyr::group_by(YEAR,NESPP3) %>%
   dplyr::summarise(totLand = sum(SPPLIVMT)) %>% 
   dplyr::arrange(YEAR,NESPP3)
-
-landings$totLand <- landings$totLand * 1000000 # convert to grams
 
 # list of unique species codes
 nespp3s <- unique(comland$NESPP3)
@@ -112,13 +110,18 @@ for (iy in yrs) { #loop
   
 ```
 
-Primary production info is obtained and the PPR index is scaled by the annual PP to create an index representing proportion of PPR. The indices are shortened to the time frame represented by the PP data
+Primary production (PP) info is obtained and the PPR index is scaled by the annual PP to create an index representing proportion of PPR. The indices are shortened to the time frame represented by the PP data
 
 ```{r scaledppr, eval = F}
-PP <- eofindices::get_annual_PP(yrs,epu)
 scaled <- eofindices::calc_PPR_scaled(PPR,PP)
-
 MTL <- MTL %>% dplyr::filter(YEAR %in% scaled$YEAR)
+```
+
+The Fogarty and Ryther Indices are calculated
+
+```{r eof, eval = F}
+fogarty_index <- eofindices::calc_fogarty_index(landings,PP)
+ryther_index <- eofindices::calc_ryther_index(landings,area=as.numeric(comlandr::EPUs[[epu]]$area))
 
 ```
 
@@ -128,13 +131,16 @@ The indices are then plotted
 eofindices::plot_pp_index(scaled,epu)
 eofindices::plot_ppr_index(scaled,epu)
 eofindices::plot_mtl_index(MTL,epu)
-
+eofindices::plot_fogarty_index(fogarty_index,epu)
+eofindices::plot_ryther_index(ryther_index,epu)
 ```
 
 ```{r includeplots1, eval = T, echo = F, out.width='50%'}
-knitr::include_graphics("figures/2020/PPR-GOM-0_80.png")
-knitr::include_graphics("figures/2020/MTL-GOM-0_80.png")
-knitr::include_graphics("figures/2020/PP-GOM.png")
+knitr::include_graphics("figures/2021/PPR-GOM-0_80.png")
+knitr::include_graphics("figures/2021/MTL-GOM-0_80.png")
+knitr::include_graphics("figures/2021/PP-GOM.png")
+knitr::include_graphics("figures/2021/fogarty-index-Constant-GOM.png")
+knitr::include_graphics("figures/2021/ryther-index-GOM.png")
 ```
 
 
@@ -169,7 +175,7 @@ plot(speciesComp$plotObj)
 
 
 ```{r plotspeciescomp, echo = F, eval = T, out.width='80%'}
-knitr::include_graphics("figures/2020/composition-GOM-0_80.png")
+knitr::include_graphics("figures/2021/composition-GOM-0_80.png")
 ```
 
 
