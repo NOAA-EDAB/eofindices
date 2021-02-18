@@ -23,8 +23,7 @@
 #'@importFrom magrittr "%>%"
 #'
 #'@family Link Indices
-#'
-#'@export
+#' @noRd
 
 ## need to generalize column names
 
