@@ -180,12 +180,12 @@
 <p>Primary production info is obtained and the PPR index is scaled by the annual PP to create an index representing proportion of PPR. The indices are shortened to the time frame represented by the PP data</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">PP</span> <span class="op">&lt;-</span> <span class="fu">eofindices</span><span class="fu">::</span><span class="fu">get_annual_PP</span><span class="op">(</span><span class="va">yrs</span>,<span class="va">epu</span><span class="op">)</span>
-<span class="va">scaled</span> <span class="op">&lt;-</span> <span class="fu">eofindices</span><span class="fu">::</span><span class="fu"><a href="../reference/calc_PPR_scaled.html">calc_PPR_scaled</a></span><span class="op">(</span><span class="va">PPR</span>,<span class="va">PP</span><span class="op">)</span>
+<span class="va">scaled</span> <span class="op">&lt;-</span> <span class="fu">eofindices</span><span class="fu">::</span><span class="fu">calc_PPR_scaled</span><span class="op">(</span><span class="va">PPR</span>,<span class="va">PP</span><span class="op">)</span>
 
 <span class="va">MTL</span> <span class="op">&lt;-</span> <span class="va">MTL</span> <span class="op">%&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">YEAR</span> <span class="op">%in%</span> <span class="va">scaled</span><span class="op">$</span><span class="va">YEAR</span><span class="op">)</span></code></pre></div>
 <p>The indices are then plotted</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">eofindices</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_pp_index.html">plot_pp_index</a></span><span class="op">(</span><span class="va">scaled</span>,<span class="va">epu</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu">eofindices</span><span class="fu">::</span><span class="fu">plot_pp_index</span><span class="op">(</span><span class="va">scaled</span>,<span class="va">epu</span><span class="op">)</span>
 <span class="fu">eofindices</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_ppr_index.html">plot_ppr_index</a></span><span class="op">(</span><span class="va">scaled</span>,<span class="va">epu</span><span class="op">)</span>
 <span class="fu">eofindices</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_mtl_index.html">plot_mtl_index</a></span><span class="op">(</span><span class="va">MTL</span>,<span class="va">epu</span><span class="op">)</span></code></pre></div>
 <p><img src="figures/2020/PPR-GOM-0_80.png" width="50%"><img src="figures/2020/MTL-GOM-0_80.png" width="50%"><img src="figures/2020/PP-GOM.png" width="50%"></p>
