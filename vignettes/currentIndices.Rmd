@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 Year <- 2021
 ```
 
-All plots were for the $Year$ SOE report
+All plots were for the `r Year` SOE report
 
 ## Mid Atlantic Bight
 
