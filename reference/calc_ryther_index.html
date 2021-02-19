@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate the Ryther index — calc_ryther_index • indexPPR</title>
+<title>Calculate the Ryther index — calc_ryther_index • eofindices</title>
 
 
 <!-- jquery -->
@@ -74,7 +74,7 @@ Empirically derived tipping points typically occur in fished ecosystems with tot
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">indexPPR</a>
+        <a class="navbar-link" href="../index.html">eofindices</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
@@ -88,7 +88,7 @@ Empirically derived tipping points typically occur in fished ecosystems with tot
   </a>
 </li>
 <li>
-  <a href="../articles/indexPPR.html">Get started</a>
+  <a href="../articles/eofindices.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -101,10 +101,16 @@ Empirically derived tipping points typically occur in fished ecosystems with tot
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/currentIndices.html">Current Indices</a>
+    </li>
+    <li>
       <a href="../articles/futureWork.html">Future Research</a>
     </li>
     <li>
-      <a href="../articles/workedExample.html">Worked example - SOE 2020 +</a>
+      <a href="../articles/workedExample2020.html">Worked example - SOE 2020</a>
+    </li>
+    <li>
+      <a href="../articles/workedExample2021.html">Worked example - SOE 2021</a>
     </li>
   </ul>
 </li>
@@ -136,7 +142,7 @@ Empirically derived tipping points typically occur in fished ecosystems with tot
  order of 1 to 3 mt km^-2 y^-1"</p>
     </div>
 
-    <pre class="usage"><span class='fu'>calc_ryther_index</span><span class='op'>(</span><span class='va'>catch</span>, <span class='va'>area</span>, yearFiled <span class='op'>=</span> <span class='st'>"YEAR"</span>, catchField <span class='op'>=</span> <span class='st'>"totLand"</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>calc_ryther_index</span><span class='op'>(</span><span class='va'>catch</span>, <span class='va'>area</span>, yearField <span class='op'>=</span> <span class='st'>"YEAR"</span>, catchField <span class='op'>=</span> <span class='st'>"totLand"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -150,12 +156,12 @@ Empirically derived tipping points typically occur in fished ecosystems with tot
       <td><p>Numeric scalar. Area of the region (km^2) in which catch comes from.</p></td>
     </tr>
     <tr>
-      <th>catchField</th>
-      <td><p>Character string. The name of the field in <code>catch</code> which contains the catch data.</p></td>
-    </tr>
-    <tr>
       <th>yearField</th>
       <td><p>Character string. The name of the field in <code>catch</code> which contains the Yearly data.</p></td>
+    </tr>
+    <tr>
+      <th>catchField</th>
+      <td><p>Character string. The name of the field in <code>catch</code> which contains the catch data.</p></td>
     </tr>
     </table>
 
@@ -177,8 +183,7 @@ Empirically derived tipping points typically occur in fished ecosystems with tot
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other Link Indices: 
-<code><a href='calc_fogarty_index.html'>calc_fogarty_index</a>()</code>,
-<code><a href='calc_friedland_index.html'>calc_friedland_index</a>()</code></p></div>
+<code><a href='calc_fogarty_index.html'>calc_fogarty_index</a>()</code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

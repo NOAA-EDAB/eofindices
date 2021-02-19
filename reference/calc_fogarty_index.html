@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate the Fogarty index — calc_fogarty_index • indexPPR</title>
+<title>Calculate the Fogarty index — calc_fogarty_index • eofindices</title>
 
 
 <!-- jquery -->
@@ -72,7 +72,7 @@ Link and Watson (2019) state &quot;.. Fogarty ration of 0.22 to  0.92 per mil, w
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">indexPPR</a>
+        <a class="navbar-link" href="../index.html">eofindices</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
@@ -86,7 +86,7 @@ Link and Watson (2019) state &quot;.. Fogarty ration of 0.22 to  0.92 per mil, w
   </a>
 </li>
 <li>
-  <a href="../articles/indexPPR.html">Get started</a>
+  <a href="../articles/eofindices.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -99,10 +99,16 @@ Link and Watson (2019) state &quot;.. Fogarty ration of 0.22 to  0.92 per mil, w
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/currentIndices.html">Current Indices</a>
+    </li>
+    <li>
       <a href="../articles/futureWork.html">Future Research</a>
     </li>
     <li>
-      <a href="../articles/workedExample.html">Worked example - SOE 2020 +</a>
+      <a href="../articles/workedExample2020.html">Worked example - SOE 2020</a>
+    </li>
+    <li>
+      <a href="../articles/workedExample2021.html">Worked example - SOE 2021</a>
     </li>
   </ul>
 </li>
@@ -134,10 +140,11 @@ Link and Watson (2019) state ".. Fogarty ration of 0.22 to  0.92 per mil, with a
 
     <pre class="usage"><span class='fu'>calc_fogarty_index</span><span class='op'>(</span>
   <span class='va'>catch</span>,
-  <span class='va'>primaryProduction</span>,
-  yearField <span class='op'>=</span> <span class='st'>"YEAR"</span>,
+  <span class='va'>PP</span>,
+  yearFieldCatch <span class='op'>=</span> <span class='st'>"YEAR"</span>,
   catchField <span class='op'>=</span> <span class='st'>"totLand"</span>,
-  ppField <span class='op'>=</span> <span class='st'>"ANNUAL_MEAN"</span>
+  ppField <span class='op'>=</span> <span class='st'>"ANNUAL_MEAN"</span>,
+  yearFieldPP <span class='op'>=</span> <span class='st'>"YEAR"</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -145,15 +152,15 @@ Link and Watson (2019) state ".. Fogarty ration of 0.22 to  0.92 per mil, with a
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>catch</th>
-      <td><p>Data frame. n x anything. Data containing the total catch by each species in each year.</p></td>
+      <td><p>Data frame. Data containing the total catch (mt/region/year) by each species in each year.</p></td>
     </tr>
     <tr>
-      <th>primaryProduction</th>
-      <td><p>Data frame. n x anything.</p></td>
+      <th>PP</th>
+      <td><p>Data frame. Data containing Primary Production same units as catch (but in Carbon)</p></td>
     </tr>
     <tr>
-      <th>yearField</th>
-      <td><p>Character string. The name of the field in <code>catch</code> which contains the Yearly data.</p></td>
+      <th>yearFieldCatch</th>
+      <td><p>Character string. The name of the field in <code>catch</code> which contains the Year.</p></td>
     </tr>
     <tr>
       <th>catchField</th>
@@ -161,7 +168,11 @@ Link and Watson (2019) state ".. Fogarty ration of 0.22 to  0.92 per mil, with a
     </tr>
     <tr>
       <th>ppField</th>
-      <td><p>Character string. The name of the field in <code>primaryProduction</code> which contains the ANNUAL_MEAN data.</p></td>
+      <td><p>Character string. The name of the field in <code>PP</code> which contains the ANNUAL_MEAN data.</p></td>
+    </tr>
+    <tr>
+      <th>yearFieldPP</th>
+      <td><p>Character string. The name of the field in <code>PP</code> which contains the Year.</p></td>
     </tr>
     </table>
 
@@ -173,7 +184,7 @@ Link and Watson (2019) state ".. Fogarty ration of 0.22 to  0.92 per mil, with a
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The units of the index: 0/00</p>
+    <p>The units of the index: unitless</p>
     <h2 class="hasAnchor" id="sources"><a class="anchor" href="#sources"></a>Sources</h2>
 
     
@@ -183,7 +194,6 @@ Link and Watson (2019) state ".. Fogarty ration of 0.22 to  0.92 per mil, with a
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other Link Indices: 
-<code><a href='calc_friedland_index.html'>calc_friedland_index</a>()</code>,
 <code><a href='calc_ryther_index.html'>calc_ryther_index</a>()</code></p></div>
 
   </div>
