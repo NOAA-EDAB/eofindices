@@ -10,6 +10,7 @@ Description: Ecosystem overfishing indices used to measure system health
 License: file LICENSE
 Encoding: UTF-8
 LazyData: true
+Depends: R (>= 4.0)
 Imports: 
     dplyr,
     ggplot2,
