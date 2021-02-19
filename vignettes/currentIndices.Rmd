@@ -17,6 +17,9 @@ All of the following plots were made for the `r Year` SOE report (Not all were u
 
 ## Mid Atlantic Bight
 
+```{r ppr3, echo = F, eval = T, fig.cap="Primary Production Required", out.width='80%'}
+knitr::include_graphics(paste0("figures/",Year,"/PPR-GOM-0_80.png"))
+```
 
 ```{r ppr1, echo = F, eval = T, fig.cap="Primary Production Required", out.width='80%'}
 knitr::include_graphics(paste0("figures/",Year,"/PPR-MAB-0_80.png"))
@@ -69,9 +72,7 @@ knitr::include_graphics(paste0("figures/",Year,"/ryther-index-GB.png"))
 ```
 
 ## Gulf of Maine
-```{r ppr3, echo = F, eval = T, fig.cap="Primary Production Required", out.width='80%'}
-knitr::include_graphics(paste0("figures/",Year,"/PPR-GOM-0_80.png"))
-```
+
 
 ```{r mtl3, echo = F, eval = T, fig.cap= "Mean Trophic Level", out.width='80%'}
 knitr::include_graphics(paste0("figures/",Year,"/MTL-GOM-0_80.png"))
