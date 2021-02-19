@@ -31,7 +31,7 @@
 
 ## need to generalize column names
 
-calc_ryther_index <- function(catch, area, yearFiled = "YEAR", catchField ="totLand"){
+calc_ryther_index <- function(catch, area, yearField = "YEAR", catchField ="totLand"){
 
   #rename catch field
   names(catch)[names(catch) == yearField] <- "YEAR"

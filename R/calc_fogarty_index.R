@@ -3,14 +3,15 @@
 #' The Fogarty Index is the ratio of total catches to total primary productivity in an ecosystem.
 #' Link and Watson (2019) state ".. Fogarty ration of 0.22 to  0.92 per mil, with an extreme limit of ~2.5 emerges from theoretically based limits coupled with estimates of global catches"
 #'
-#' The units of the index: 0/00
+#' The units of the index: unitless
 #'
 #'
-#'@param catch Data frame. n x anything. Data containing the total catch by each species in each year.
-#'@param primaryProduction Data frame. n x anything.
-#'@param yearField Character string. The name of the field in \code{catch} which contains the Yearly data.
+#'@param catch Data frame. Data containing the total catch (mt/region/year) by each species in each year.
+#'@param PP Data frame. Data containing Primary Production same units as catch (but in Carbon)
+#'@param yearFieldCatch Character string. The name of the field in \code{catch} which contains the Year.
 #'@param catchField Character string. The name of the field in \code{catch} which contains the catch data.
-#'@param ppField Character string. The name of the field in \code{primaryProduction} which contains the ANNUAL_MEAN data.
+#'@param yearFieldPP Character string. The name of the field in \code{PP} which contains the Year.
+#'@param ppField Character string. The name of the field in \code{PP} which contains the ANNUAL_MEAN data.
 #'
 #'
 #'@return Data frame:
@@ -30,19 +31,30 @@
 
 ## need to generalize column names
 
-calc_fogarty_index <- function(catch, primaryProduction, yearField="YEAR", catchField ="totLand", ppField ="ANNUAL_MEAN"){
+calc_fogarty_index <- function(catch, PP, yearFieldCatch="YEAR", catchField ="totLand", ppField ="ANNUAL_MEAN",yearFieldPP="YEAR"){
 
   #rename catch field
-  names(catch)[names(catch) == yearField] <- "YEAR"
+  names(catch)[names(catch) == yearFieldCatch] <- "YEAR"
   names(catch)[names(catch) == catchField] <- "catch"
-  names(primaryProduction)[names(primaryProduction)==ppField] <- "ANNUAL_MEAN"
+  names(PP)[names(PP) == yearFieldPP] <- "YEAR"
+  names(PP)[names(PP) == ppField] <- "ANNUAL_MEAN"
 
+  # convert gC m-2 d-1 to gC year-1 for the EPU
+  #totPP <- primaryProduction$PP %>%
+  #  dplyr::mutate(totalPP = ANNUAL_MEAN * (1000^2) * primaryProduction$EPUarea * 365)
+
+  # rename PP field
+  totPP <- PP$PP %>%
+    dplyr::mutate(totalPP = ANNUAL_MTON)
+
+
+  # divide by 9 to go from lcatch wet weight to Carbon
   totCatch <- catch %>%
     dplyr::group_by(YEAR) %>%
-    dplyr::summarise(totalCatch = sum(catch)) %>%
-    dplyr::left_join(primaryProduction,by="YEAR")
+    dplyr::summarise(totalCatch = sum(catch)/9) %>%
+    dplyr::left_join(totPP,by="YEAR")
 
-  fogarty <- totCatch %>% dplyr::mutate(Index=totalCatch/ANNUAL_MEAN) %>%
+  fogarty <- totCatch %>% dplyr::mutate(Index=totalCatch/totalPP) %>%
     dplyr::select(YEAR,Index)
 
   return(fogarty)

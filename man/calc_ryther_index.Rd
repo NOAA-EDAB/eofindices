@@ -4,16 +4,16 @@
 \alias{calc_ryther_index}
 \title{Calculate the Ryther index}
 \usage{
-calc_ryther_index(catch, area, yearFiled = "YEAR", catchField = "totLand")
+calc_ryther_index(catch, area, yearField = "YEAR", catchField = "totLand")
 }
 \arguments{
 \item{catch}{Data frame. n x anything. Data containing the total catch in each year. Can be broken down by species. \code{catch} must be in metric tonnes}
 
 \item{area}{Numeric scalar. Area of the region (km^2) in which catch comes from.}
 
-\item{catchField}{Character string. The name of the field in \code{catch} which contains the catch data.}
-
 \item{yearField}{Character string. The name of the field in \code{catch} which contains the Yearly data.}
+
+\item{catchField}{Character string. The name of the field in \code{catch} which contains the catch data.}
 }
 \value{
 Data frame:
@@ -38,7 +38,6 @@ J. S. Link, R. A. Watson, Global ecosystem overfishing: Clear delineation within
 
 \seealso{
 Other Link Indices: 
-\code{\link{calc_fogarty_index}()},
-\code{\link{calc_friedland_index}()}
+\code{\link{calc_fogarty_index}()}
 }
 \concept{Link Indices}

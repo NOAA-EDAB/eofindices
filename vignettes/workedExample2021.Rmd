@@ -1,8 +1,8 @@
 ---
-title: "Worked example - SOE 2020 +"
+title: "Worked example - SOE 2021"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Worked example - SOE 2020 +}
+  %\VignetteIndexEntry{Worked example - SOE 2021}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 
@@ -12,14 +12,17 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-This worked example will result in plots of the following for a specified EPU:
 
-* scaled PPR index
+This worked example will result in the following figures (for a specified EPU):
+
+* Primary Production Required index (scaled by Primary Production)
+* Fogarty Index (measure of ecosystem overfishing) 
+* Ryther Index (measure of ecosystem overfishing) 
 * Mean trophic level
 * Annual primary production
 * species composition over time
 
-The commercial landings data are confidential and are not bundled with this package. This example assumes you have access the the appropriate data base and have already pulled the data and stored it in a dataframe called `comland`. See package `comlandr` for details.
+The commercial landings data are confidential and are not bundled with this package. This example assumes you have access the the appropriate data base and have already pulled the data and stored it in a dataframe called `comland`. See package [`comlandr](https://github.com/NOAA-EDAB/comlandr) for details.
 
 Initial values for the following are needed: 
 
@@ -40,8 +43,6 @@ landings <- comland %>% dplyr::filter(EPU == epu)  %>% # US and NAFO landings
   dplyr::group_by(YEAR,NESPP3) %>%
   dplyr::summarise(totLand = sum(SPPLIVMT)) %>% 
   dplyr::arrange(YEAR,NESPP3)
-
-landings$totLand <- landings$totLand * 1000000 # convert to grams
 
 # list of unique species codes
 nespp3s <- unique(comland$NESPP3)
@@ -64,7 +65,7 @@ lookupTable <- lookup$data
 fishbaseTable <- lookupTable %>% dplyr::select(COMMON_NAME,SCIENTIFIC_NAME,NESPP3) %>%
   dplyr::distinct()
 # access fishbase for Trophic level data
-callfishbase <- indexPPR::get_trophic_level(fishbaseTable)
+callfishbase <- eofindices::get_trophic_level(fishbaseTable)
 fishbaseTable <- callfishbase$fishbaseTable
 
 ```
@@ -85,7 +86,7 @@ for (iy in yrs) { #loop
   annualLandings <- landings %>% dplyr::filter(YEAR == iy, !(NESPP3 %in% c("526","529","817","832","806"))) # OTHER FISH, ROCKWEED, SEAWEED, 806 = sea cucumbers
   if ((dim(annualLandings)[1]) == 0) {next}
   # pick species that make up top x % of landings
-  topSpecies <- indexPPR::select_top_x_percent(annualLandings$NESPP3,annualLandings$totLand,threshold)
+  topSpecies <- eofindices::select_top_x_percent(annualLandings$NESPP3,annualLandings$totLand,threshold)
   nSpeciesTop <- dim(topSpecies)[1]
   names(nSpeciesTop) <- "nSpecies"
   topTable <- dplyr::left_join(topSpecies,fishbaseTable,by=c("NESPP3"))
@@ -100,8 +101,8 @@ for (iy in yrs) { #loop
   
   # Calculate the PPR & MTL indices------------------------------------------
   ### NOTE: We do not have discards in calculation, just landings
-  ppr_index <- indexPPR::calc_ppr_index(landingsTimeSeries,topTable,transferEff)
-  mtl_index <- indexPPR::calc_mtl_index(landingsTimeSeries,topTable)  
+  ppr_index <- eofindices::calc_ppr_index(landingsTimeSeries,topTable,transferEff)
+  mtl_index <- eofindices::calc_mtl_index(landingsTimeSeries,topTable)  
   # concatenate  
   PPR <- rbind(PPR,c(ppr_index,nSpeciesTop,landingsTop))  
   MTL <- rbind(MTL,c(mtl_index,nSpeciesTop,landingsTop))
@@ -109,29 +110,37 @@ for (iy in yrs) { #loop
   
 ```
 
-Primary production info is obtained and the PPR index is scaled by the annual PP to create an index representing proportion of PPR. The indices are shortened to the time frame represented by the PP data
+Primary production (PP) info is obtained and the PPR index is scaled by the annual PP to create an index representing proportion of PPR. The indices are shortened to the time frame represented by the PP data
 
 ```{r scaledppr, eval = F}
-PP <- indexPPR::get_annual_PP(yrs,epu)
-scaled <- indexPPR::calc_PPR_scaled(PPR,PP)
-
+scaled <- eofindices::calc_PPR_scaled(PPR,PP)
 MTL <- MTL %>% dplyr::filter(YEAR %in% scaled$YEAR)
+```
+
+The Fogarty and Ryther Indices are calculated
+
+```{r eof, eval = F}
+fogarty_index <- eofindices::calc_fogarty_index(landings,PP)
+ryther_index <- eofindices::calc_ryther_index(landings,area=as.numeric(comlandr::EPUs[[epu]]$area))
 
 ```
 
 The indices are then plotted
 
 ```{r plotppr, eval = F}
-indexPPR::plot_pp_index(scaled,epu)
-indexPPR::plot_ppr_index(scaled,epu)
-indexPPR::plot_mtl_index(MTL,epu)
-
+eofindices::plot_pp_index(scaled,epu)
+eofindices::plot_ppr_index(scaled,epu)
+eofindices::plot_mtl_index(MTL,epu)
+eofindices::plot_fogarty_index(fogarty_index,epu)
+eofindices::plot_ryther_index(ryther_index,epu)
 ```
 
 ```{r includeplots1, eval = T, echo = F, out.width='50%'}
-knitr::include_graphics("figures/PPR-GOM-0_80.png")
-knitr::include_graphics("figures/MTL-GOM-0_80.png")
-knitr::include_graphics("figures/PP-GOM.png")
+knitr::include_graphics("figures/2021/PPR-GOM-0_80.png")
+knitr::include_graphics("figures/2021/MTL-GOM-0_80.png")
+knitr::include_graphics("figures/2021/PP-GOM.png")
+knitr::include_graphics("figures/2021/fogarty-index-Constant-GOM.png")
+knitr::include_graphics("figures/2021/ryther-index-GOM.png")
 ```
 
 
@@ -147,7 +156,7 @@ landings <- comland %>% dplyr::filter(EPU == epu)  %>% # US and NAFO landings
   dplyr::summarise(totLand = sum(SPPLIVMT)) %>% 
   dplyr::arrange(YEAR,NESPP3)
 
-  speciesComp <- indexPPR::explore_species_composition(channel,landings,as.numeric(threshold),catchCN="totLand")
+  speciesComp <- eofindices::explore_species_composition(channel,landings,as.numeric(threshold),catchCN="totLand")
   # hard code missing species names
   ind <- speciesComp$data$NESPP3 == "524"
   speciesComp$data$COMMON_NAME[ind] <- "OTHER GROUNDFISH"
@@ -166,7 +175,7 @@ plot(speciesComp$plotObj)
 
 
 ```{r plotspeciescomp, echo = F, eval = T, out.width='80%'}
-knitr::include_graphics("figures/composition-GOM-0_80.png")
+knitr::include_graphics("figures/2021/composition-GOM-0_80.png")
 ```
 
 

@@ -3,15 +3,14 @@
 #' Using ideas found in Pauly & Christensen's (1995) Nature publication,
 #' Primary Production Required is calculated as:
 #'
+#' Units: gC year^-1
 #'
-#'
-#'@param catch dataframe. n x anything. Data containg the total catch by each species in each year.
-#'Columns must be named YEAR,NESPP3,catch
-#'@param speciesTL dataframe. m x anything. Species codes and trophic level for the most abundantly caught species.
+#'@param catch Data frame. n x m Data containing the total catch (g) by each species in each year.
+#'Must include two columns named YEAR,catch, a third column must contain the NESPP3 codes
+#'@param speciesTL Data frame. m x anything. Species codes and trophic level for the most abundantly caught species.
 #'One column must be named NESPP3 and another Troph
-#'@param transferEfficiency
-#'
-#'@param speciesCode Character string. The name of the column that holds the speciesCodes. Default = "NESPP3".
+#'@param transferEfficiency Numeric scalar. The value of transfer efficiency to use in the PPR calculation. Range should be [0,1] (Default = 0.10)
+#'@param speciesCode Character string. The name of the column that holds the species codes. Default = "NESPP3".
 #'
 #'@return Data frame:
 #'
@@ -24,7 +23,7 @@
 
 ## need to generalize column names
 
-calc_ppr_index <- function(catch,speciesTL,transferEfficiency,speciesCode = "NESPP3"){
+calc_ppr_index <- function(catch,speciesTL,transferEfficiency=0.1,speciesCode = "NESPP3"){
 
   #preallocate dataframe
   years <- unique(catch$YEAR)

@@ -1,15 +1,16 @@
-Package: indexPPR
+Package: eofindices
 Type: Package
-Title: Utilities to create PPR index for the NEFSC SOE
+Title: Utilities to create ecosystem overfishing indices for the NEFSC State of the Ecosystem report
 Version: 0.1.0
 Authors@R: c(person("Andy", "Beet", email = "andrew.beet@noaa.gov", role = c("aut", "cre")),
 				person("Michael", "Fogarty", email = "michael.fogarty@noaa.gov", role = c("aut")))
 Maintainer: Andy Beet <andrew.beet@noaa.gov>
-Description: Primary Production Required, an index used to measure system health
-    in an ecosytem. The amount of primary reduction required to account for a given level of catch
-License: What license is it under?
+Description: Ecosystem overfishing indices used to measure system health
+    in an ecosytem due to removals of secondary production.
+License: file LICENSE
 Encoding: UTF-8
 LazyData: true
+Depends: R (>= 4.0)
 Imports: 
     dplyr,
     ggplot2,
@@ -17,7 +18,7 @@ Imports:
     magrittr
 Remotes:
     andybeet/dbutils
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Suggests: 
     knitr,
     rmarkdown

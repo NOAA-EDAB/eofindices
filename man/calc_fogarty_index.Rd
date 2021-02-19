@@ -6,22 +6,25 @@
 \usage{
 calc_fogarty_index(
   catch,
-  primaryProduction,
-  yearField = "YEAR",
+  PP,
+  yearFieldCatch = "YEAR",
   catchField = "totLand",
-  ppField = "ANNUAL_MEAN"
+  ppField = "ANNUAL_MEAN",
+  yearFieldPP = "YEAR"
 )
 }
 \arguments{
-\item{catch}{Data frame. n x anything. Data containing the total catch by each species in each year.}
+\item{catch}{Data frame. Data containing the total catch (mt/region/year) by each species in each year.}
 
-\item{primaryProduction}{Data frame. n x anything.}
+\item{PP}{Data frame. Data containing Primary Production same units as catch (but in Carbon)}
 
-\item{yearField}{Character string. The name of the field in \code{catch} which contains the Yearly data.}
+\item{yearFieldCatch}{Character string. The name of the field in \code{catch} which contains the Year.}
 
 \item{catchField}{Character string. The name of the field in \code{catch} which contains the catch data.}
 
-\item{ppField}{Character string. The name of the field in \code{primaryProduction} which contains the ANNUAL_MEAN data.}
+\item{ppField}{Character string. The name of the field in \code{PP} which contains the ANNUAL_MEAN data.}
+
+\item{yearFieldPP}{Character string. The name of the field in \code{PP} which contains the Year.}
 }
 \value{
 Data frame:
@@ -34,7 +37,7 @@ The Fogarty Index is the ratio of total catches to total primary productivity in
 Link and Watson (2019) state ".. Fogarty ration of 0.22 to  0.92 per mil, with an extreme limit of ~2.5 emerges from theoretically based limits coupled with estimates of global catches"
 }
 \details{
-The units of the index: 0/00
+The units of the index: unitless
 }
 \section{Sources}{
 
@@ -44,7 +47,6 @@ J. S. Link, R. A. Watson, Global ecosystem overfishing: Clear delineation within
 
 \seealso{
 Other Link Indices: 
-\code{\link{calc_friedland_index}()},
 \code{\link{calc_ryther_index}()}
 }
 \concept{Link Indices}

@@ -4,18 +4,23 @@
 \alias{calc_ppr_index}
 \title{Calculate the PPR index}
 \usage{
-calc_ppr_index(catch, speciesTL, transferEfficiency, speciesCode = "NESPP3")
+calc_ppr_index(
+  catch,
+  speciesTL,
+  transferEfficiency = 0.1,
+  speciesCode = "NESPP3"
+)
 }
 \arguments{
-\item{catch}{dataframe. n x anything. Data containg the total catch by each species in each year.
-Columns must be named YEAR,NESPP3,catch}
+\item{catch}{Data frame. n x m Data containing the total catch (g) by each species in each year.
+Must include two columns named YEAR,catch, a third column must contain the NESPP3 codes}
 
-\item{speciesTL}{dataframe. m x anything. Species codes and trophic level for the most abundantly caught species.
+\item{speciesTL}{Data frame. m x anything. Species codes and trophic level for the most abundantly caught species.
 One column must be named NESPP3 and another Troph}
 
-\item{transferEfficiency}{}
+\item{transferEfficiency}{Numeric scalar. The value of transfer efficiency to use in the PPR calculation. Range should be [0,1] (Default = 0.10)}
 
-\item{speciesCode}{Character string. The name of the column that holds the speciesCodes. Default = "NESPP3".}
+\item{speciesCode}{Character string. The name of the column that holds the species codes. Default = "NESPP3".}
 }
 \value{
 Data frame:
@@ -26,4 +31,7 @@ Data frame:
 \description{
 Using ideas found in Pauly & Christensen's (1995) Nature publication,
 Primary Production Required is calculated as:
+}
+\details{
+Units: gC year^-1
 }

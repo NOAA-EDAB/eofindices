@@ -2,18 +2,40 @@
 % Please edit documentation in R/calc_PPR_scaled.R
 \name{calc_PPR_scaled}
 \alias{calc_PPR_scaled}
-\title{Scale PPR index by toal production}
+\title{Scale PPR index by total primary production}
 \usage{
-calc_PPR_scaled(PPR, PP, units = "m")
+calc_PPR_scaled(
+  PPR,
+  PP,
+  pprField = "INDEX",
+  yearFieldPPR = "YEAR",
+  ppField = "ANNUAL_MTON",
+  yearFieldPP = "YEAR"
+)
 }
 \arguments{
-\item{PPR}{dataframe (nx2). Primary production required index over time. Two columns YEAR and INDEX}
+\item{PPR}{Data frame (n x 2). Primary production required index over time. Two columns YEAR and INDEX}
 
-\item{PP}{list.}
+\item{PP}{List. First element labeled \code{PP} is a Data frame of size (n x 2). Columns YEAR, ANNUAL_MEAN. Second element labeled \code{EPUarea} is the area of the region}
+
+\item{pprField}{Character string. The name of the field in \code{PPR} which contains the PPR index data.}
+
+\item{yearFieldPPR}{Character string. The name of the field in \code{PPR} which contains the Year.}
+
+\item{ppField}{Character string. The name of the field in \code{PP} which contains the PP data.}
+
+\item{yearFieldPP}{Character string. The name of the field in \code{PP} which contains the Year.}
 }
 \value{
-dataframe.
+Data frame (n x 7)
+\item{YEAR}{Year of scaled index}
+\item{SCALEDINDEX}{Ratio of PPR:PP}
 }
 \description{
-Scale PPR index by toal production
+Total primary production (PP) should be in units mtC year^-1, since
+PPR has units mtC year^-1.
+The ratio of PPR:PP is then returned
+}
+\details{
+Units: Percentage
 }
