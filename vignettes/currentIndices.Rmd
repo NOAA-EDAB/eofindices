@@ -17,80 +17,79 @@ All of the following plots were made for the `r Year` SOE report (Not all were u
 
 ## Mid Atlantic Bight
 
-```{r ppr3, echo = F, eval = T, fig.cap="Primary Production Required", out.width='80%'}
-knitr::include_graphics(paste0("figures/",Year,"/PPR-GOM-0_80.png"))
-```
-
 ```{r ppr1, echo = F, eval = T, fig.cap="Primary Production Required", out.width='80%'}
-knitr::include_graphics(paste0("figures/",Year,"/PPR-MAB-0_80.png"))
+knitr::include_graphics(paste0("figures/2021/PPR-MAB-0_80.png"))
 ```
 
 ```{r mtl1, echo = F, eval = T,fig.cap="Mean Trophic Level",  out.width='80%'}
-knitr::include_graphics(paste0("figures/",Year,"/MTL-MAB-0_80.png"))
+knitr::include_graphics(paste0("figures/2021/MTL-MAB-0_80.png"))
 ```
 
 ```{r pp1, echo = F, eval = T, fig.cap="Primary Production", out.width='80%'}
-knitr::include_graphics(paste0("figures/",Year,"/PP-MAB.png"))
+knitr::include_graphics(paste0("figures/2021/PP-MAB.png"))
 ```
 
 ```{r comp1, echo = F, eval = T, fig.cap="Composition of Landings", out.width='80%'}
-knitr::include_graphics(paste0("figures/",Year,"/composition-MAB-0_80.png"))
+knitr::include_graphics(paste0("figures/2021/composition-MAB-0_80.png"))
 ```
 
 ```{r fog1, echo = F, eval = T,fig.cap="Fogarty Index",  out.width='80%'}
-knitr::include_graphics(paste0("figures/",Year,"/fogarty-index-Constant-MAB.png"))
+knitr::include_graphics(paste0("figures/2021/fogarty-index-Constant-MAB.png"))
 ```
 
 ```{r ry1, echo = F, eval = T,fig.cap="Ryther Index", out.width='80%'}
-knitr::include_graphics(paste0("figures/",Year,"/ryther-index-MAB.png"))
+knitr::include_graphics(paste0("figures/2021/ryther-index-MAB.png"))
 ```
 
 ## Georges Bank
 
 ```{r ppr2, echo = F, eval = T,fig.cap="Primary Production Required", out.width='80%'}
-knitr::include_graphics(paste0("figures/",Year,"/PPR-GB-0_80.png"))
+knitr::include_graphics(paste0("figures/2021/PPR-GB-0_80.png"))
 ```
 
 ```{r mtl2, echo = F, eval = T,fig.cap="Mean Trophic Level", out.width='80%'}
-knitr::include_graphics(paste0("figures/",Year,"/MTL-GB-0_80.png"))
+knitr::include_graphics(paste0("figures/2021/MTL-GB-0_80.png"))
 ```
 
 ```{r pp2, echo = F, eval = T, fig.cap="",out.width='80%'}
-knitr::include_graphics(paste0("figures/",Year,"/PP-GB.png"))
+knitr::include_graphics(paste0("figures/2021/PP-GB.png"))
 ```
 
 ```{r comp2, echo = F, eval = T,fig.cap="Composition of Landings", out.width='80%'}
-knitr::include_graphics(paste0("figures/",Year,"/composition-GB-0_80.png"))
+knitr::include_graphics(paste0("figures/2021/composition-GB-0_80.png"))
 ```
 
 ```{r fog2, echo = F, eval = T,fig.cap="Fogarty Index", out.width='80%'}
-knitr::include_graphics(paste0("figures/",Year,"/fogarty-index-Constant-GB.png"))
+knitr::include_graphics(paste0("figures/2021/fogarty-index-Constant-GB.png"))
 ```
 
 ```{r ry2, echo = F, eval = T, fig.cap="Ryther Index" , out.width='80%'}
-knitr::include_graphics(paste0("figures/",Year,"/ryther-index-GB.png"))
+knitr::include_graphics(paste0("figures/2021/ryther-index-GB.png"))
 ```
 
 ## Gulf of Maine
 
+```{r ppr3, echo = F, eval = T, fig.cap="Primary Production Required", out.width='80%'}
+knitr::include_graphics(paste0("figures/2021/PPR-GOM-0_80.png"))
+```
 
 ```{r mtl3, echo = F, eval = T, fig.cap= "Mean Trophic Level", out.width='80%'}
-knitr::include_graphics(paste0("figures/",Year,"/MTL-GOM-0_80.png"))
+knitr::include_graphics(paste0("figures/2021/MTL-GOM-0_80.png"))
 ```
 
 ```{r pp3, echo = F, eval = T, fig.cap= "Primary Production", out.width='80%'}
-knitr::include_graphics(paste0("figures/",Year,"/PP-GOM.png"))
+knitr::include_graphics(paste0("figures/2021/PP-GOM.png"))
 ```
 
 ```{r comp3, echo = F, eval = T,fig.cap="Composition of Landings", out.width='80%'}
-knitr::include_graphics(paste0("figures/",Year,"/composition-GOM-0_80.png"))
+knitr::include_graphics(paste0("figures/2021/composition-GOM-0_80.png"))
 ```
 
 ```{r fog3, echo = F, eval = T, fig.cap= "Fogarty Index" ,out.width='80%'}
-knitr::include_graphics(paste0("figures/",Year,"/fogarty-index-Constant-GOM.png"))
+knitr::include_graphics(paste0("figures/2021/fogarty-index-Constant-GOM.png"))
 ```
 
 ```{r ry3, echo = F, eval = T, fig.cap="Ryther Index" ,out.width='80%'}
-knitr::include_graphics(paste0("figures/",Year,"/ryther-index-GOM.png"))
+knitr::include_graphics(paste0("figures/2021/ryther-index-GOM.png"))
 ```
 
