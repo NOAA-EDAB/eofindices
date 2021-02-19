@@ -24,7 +24,7 @@
 #'@export
 
 
-calc_PPR_scaled <- function(PPR,PP,pprField="INDEX",yearFieldPPR="YEAR",ppField = "ANNUAL_MTON",yearFieldPP="YEAR") {
+calc_ppr_scaled <- function(PPR,PP,pprField="INDEX",yearFieldPPR="YEAR",ppField = "ANNUAL_MTON",yearFieldPP="YEAR") {
 
   names(PPR)[names(PPR) == yearFieldPPR] <- "YEAR"
   names(PPR)[names(PPR) == pprField] <- "INDEX"
