@@ -1,0 +1,25 @@
+url: https://noaa-edab.github.io/eofindices/
+
+reference:
+- title: "Calculate indices"
+- contents:
+  - calc_ppr_index
+  - calc_ppr_scaled
+  - calc_mtl_index
+  - calc_fogarty_index
+  - calc_ryther_index
+- title: "Plot indices"
+- contents:
+  - plot_ppr_index
+  - plot_fogarty_index
+  - plot_ryther_index
+  - plot_mtl_index
+  - explore_species_composition
+- title: "Intermediate functions"
+  desc: "Functions used that aid in the creation of the indices."
+- contents:
+  - get_trophic_level
+  - select_top_x_percent
+  - select_troph
+  - capitalize_first_letter
+
