@@ -4,7 +4,7 @@
 ![Install on windows](https://github.com/andybeet/eofindices/workflows/Install%20on%20windows/badge.svg)
 ![gitleaks](https://github.com/andybeet/eofindices/workflows/gitleaks/badge.svg)
 
-A suite of tools used to calculate indices based on Trophic level.
+A suite of tools used to calculate and display Ecosystem overfishing indices (EOF)
 
 * Primary Production Required (PPR)<sup>1</sup>
 
@@ -24,8 +24,8 @@ remotes::install_github("NOAA-EDAB/eofindices")
 ## Usage
 
 * See the [vignette](https://NOAA-EDAB.github.io/eofindices/articles/eofindices.html) for a walkthrough of the functions
-* See the [worked example](https://NOAA-EDAB.github.io/eofindices/articles/workedExample.html) for details on how to use this package.
-* or the [Tech doc](https://NOAA-EDAB.github.io/tech-doc/primary-production-required.html) for overview of the methodology
+* See the most recent [worked example](https://NOAA-EDAB.github.io/eofindices/articles/workedExample2021.html) for details on how to use this package.
+* or the [Tech doc](https://NOAA-EDAB.github.io/tech-doc/ecosystem-overfishing.html) for overview of the methodology
 
 
 Footnote:
