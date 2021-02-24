@@ -1,7 +1,7 @@
 Package: eofindices
 Type: Package
 Title: Utilities to create ecosystem overfishing indices for the NEFSC State of the Ecosystem report
-Version: 0.1.0
+Version: 1.0.0
 Authors@R: c(person("Andy", "Beet", email = "andrew.beet@noaa.gov", role = c("aut", "cre")),
 				person("Michael", "Fogarty", email = "michael.fogarty@noaa.gov", role = c("aut")))
 Maintainer: Andy Beet <andrew.beet@noaa.gov>
