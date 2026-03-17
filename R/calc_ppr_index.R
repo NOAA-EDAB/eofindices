@@ -23,26 +23,34 @@
 
 ## need to generalize column names
 
-calc_ppr_index <- function(catch,speciesTL,transferEfficiency=0.1,speciesCode = "NESPP3"){
-
+calc_ppr_index <- function(
+  catch,
+  speciesTL,
+  transferEfficiency = 0.1,
+  speciesCode = "NESPP3",
+  catch_field = "totLand"
+) {
+  names(catch)[names(catch) == catch_field] <- "totLand"
   #preallocate dataframe
   years <- unique(catch$YEAR)
-  PPR <- as.data.frame(matrix(data=NA,nrow=length(years),ncol=2))
-  names(PPR) <- c("YEAR","INDEX")
+  PPR <- as.data.frame(matrix(data = NA, nrow = length(years), ncol = 2))
+  names(PPR) <- c("YEAR", "INDEX")
 
   # for each year calculate the PPR score
   for (iy in 1:length(years)) {
     # select the current year
-    data <- catch %>% dplyr::filter(YEAR == years[iy])
+    data <- catch |> dplyr::filter(YEAR == years[iy])
     # join catch with species(this contains trophic level)
-    master <- dplyr::left_join(data,speciesTL,by=speciesCode)
+    master <- dplyr::left_join(data, speciesTL, by = speciesCode)
 
     # calulate index
     PPR$YEAR[iy] <- years[iy]
     # decision rule for missing data. ALL to zero
     master$totLand[is.na(master$totLand)] <- 0
     # index
-    PPR$INDEX[iy] <- sum((master$totLand/9)*(1/transferEfficiency)^(master$Troph-1))
+    PPR$INDEX[iy] <- sum(
+      (master$totLand / 9) * (1 / transferEfficiency)^(master$Troph - 1)
+    )
   }
 
   return(PPR)

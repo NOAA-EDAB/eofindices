@@ -18,19 +18,24 @@
 
 ## need to generalize column names
 
-calc_mtl_index <- function(catch,speciesTL,speciesCode="NESPP3"){
-
+calc_mtl_index <- function(
+  catch,
+  speciesTL,
+  speciesCode = "NESPP3",
+  catch_field = "totLand"
+) {
+  names(catch)[names(catch) == catch_field] <- "totLand"
   #preallocate dataframe
   years <- unique(catch$YEAR)
-  meanTL <- as.data.frame(matrix(data=NA,nrow=length(years),ncol=2))
-  names(meanTL) <- c("YEAR","INDEX")
+  meanTL <- as.data.frame(matrix(data = NA, nrow = length(years), ncol = 2))
+  names(meanTL) <- c("YEAR", "INDEX")
 
   # for each year calculate the mean trophic level
   for (iy in 1:length(years)) {
     # select the current year
     data <- catch %>% dplyr::filter(YEAR == years[iy])
     # join catch with species(this contains trophic level)
-    master <- dplyr::left_join(data,speciesTL,by=speciesCode)
+    master <- dplyr::left_join(data, speciesTL, by = speciesCode)
 
     # calulate index
     meanTL$YEAR[iy] <- years[iy]
