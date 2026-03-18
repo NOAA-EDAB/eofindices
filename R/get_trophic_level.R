@@ -54,6 +54,11 @@ get_trophic_level <- function(lookupTable) {
           server = "fishbase"
         ) |>
           dplyr::select(DietTroph, FoodTroph)
+        if (nrow(vertibrates) == 0) {
+          # if no data
+          # set DietTroph, FoodTroph to NA
+          vertibrates <- data.frame(DietTroph = NA, FoodTroph = NA)
+        }
         # estimate table.
         est <- rfishbase::estimate(
           species_list = speciesNm,
@@ -144,13 +149,16 @@ get_trophic_level <- function(lookupTable) {
       ) |>
         dplyr::select(Troph)
 
-      vertibrates <- cbind(vertibrates, est)
-
-      if (any(!is.na(vertibrates))) {
-        vertibrates <- data.frame(as.list(colMeans(vertibrates, na.rm = T)))
-        fishbaseTable$DietTroph[isp] <- vertibrates$DietTroph
-        fishbaseTable$FoodTroph[isp] <- vertibrates$FoodTroph
-        fishbaseTable$EstTroph[isp] <- vertibrates$FoodTroph
+      if (any(!is.na(vertibrates)) | any(!is.na(est))) {
+        fishbaseTable$DietTroph[isp] <- mean(
+          vertibrates$DietTroph,
+          na.rm = TRUE
+        )
+        fishbaseTable$FoodTroph[isp] <- mean(
+          vertibrates$FoodTroph,
+          na.rm = TRUE
+        )
+        fishbaseTable$EstTroph[isp] <- mean(est$FoodTroph, na.rm = TRUE)
         fishbaseTable$vertibrate[isp] <- TRUE
       } else {
         # inverts
