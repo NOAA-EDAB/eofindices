@@ -31,53 +31,89 @@
 #'
 #'@export
 
-explore_species_composition <- function(channel,landings,threshold,filename=NULL,speciesCodeCN="NESPP3",catchCN="CATCH", ...) {
-
+explore_species_composition <- function(
+  channel,
+  landings,
+  threshold,
+  filename = NULL,
+  speciesCodeCN = "NESPP3",
+  catchCN = "CATCH",
+  ...
+) {
   # rename the column containing speciescode
   names(landings)[names(landings) == speciesCodeCN] <- "NESPP3"
   names(landings)[names(landings) == catchCN] <- "CATCH"
 
-  years <- seq(from=min(landings$YEAR),to=max(landings$YEAR), by=1)
-  topx <- data.frame(YEAR=NULL,NESPP3=NULL,LANDINGS=NULL)
+  years <- seq(from = min(landings$YEAR), to = max(landings$YEAR), by = 1)
+  topx <- data.frame(YEAR = NULL, NESPP3 = NULL, LANDINGS = NULL)
   for (iy in years) {
     dataTop <- landings %>% dplyr::filter(YEAR == iy)
     if (dim(dataTop)[1] == 0) {
       next
     }
-    species <- select_top_x_percent(dataTop$NESPP3,dataTop$CATCH,threshold)
-    newYear <- data.frame(YEAR=as.integer(rep(iy,length(species$NESPP3))),NESPP3=species$NESPP3,LANDINGS=species$LANDINGS,stringsAsFactors=F)
-    topx <- rbind(topx,newYear)
+    species <- select_top_x_percent(dataTop$NESPP3, dataTop$CATCH, threshold)
+    newYear <- data.frame(
+      YEAR = as.integer(rep(iy, length(species$NESPP3))),
+      NESPP3 = species$NESPP3,
+      LANDINGS = species$LANDINGS,
+      stringsAsFactors = F
+    )
+    topx <- rbind(topx, newYear)
   }
   # plot topx species comp over time and landings
   # expand grid
 
   topxnespp3s <- topx %>% dplyr::distinct(NESPP3)
 
-  lookupSpecies <- dbutils::create_species_lookup(channel,species=unlist(topxnespp3s))
-  commonNames <- lookupSpecies$data %>% dplyr::select(NESPP3,COMMON_NAME) %>% dplyr::distinct()
+  lookupSpecies <- dbutils::create_species_lookup(
+    channel,
+    species = unlist(topxnespp3s)
+  )
+  commonNames <- lookupSpecies$data %>%
+    dplyr::select(NESPP3, COMMON_NAME) %>%
+    dplyr::distinct()
 
-  timeSpeciesGrid <- expand.grid(YEAR=min(years):max(years),NESPP3=topxnespp3s$NESPP3,stringsAsFactors = F)
-  topxGrid <- dplyr::as_tibble(dplyr::left_join(timeSpeciesGrid,topx,by=c("YEAR","NESPP3")))
-  topxGrid <- dplyr::left_join(topxGrid,commonNames,by="NESPP3")
+  timeSpeciesGrid <- expand.grid(
+    YEAR = min(years):max(years),
+    NESPP3 = topxnespp3s$NESPP3,
+    stringsAsFactors = F
+  )
+  topxGrid <- dplyr::as_tibble(dplyr::left_join(
+    timeSpeciesGrid,
+    topx,
+    by = c("YEAR", "NESPP3")
+  ))
+  topxGrid <- dplyr::left_join(topxGrid, commonNames, by = "NESPP3")
   # create a presence-absence column
-  topxGrid <- topxGrid %>% dplyr::mutate(PresenceAbsence=!is.na(LANDINGS))
-  yearAgg <- topxGrid %>% dplyr::group_by(YEAR) %>% dplyr::summarize(totLand=sum(LANDINGS,na.rm = T))
+  topxGrid <- topxGrid %>% dplyr::mutate(PresenceAbsence = !is.na(LANDINGS))
+  yearAgg <- topxGrid %>%
+    dplyr::group_by(YEAR) %>%
+    dplyr::summarize(totLand = sum(LANDINGS, na.rm = T))
 
-  p <- ggplot2::ggplot(data=topxGrid) +
-    ggplot2::geom_point(mapping=ggplot2::aes(x=YEAR,y=COMMON_NAME,color=PresenceAbsence)) +
-    ggplot2::scale_color_manual(values=c("white", "darkgreen")) +
-    ggplot2::geom_line(data=yearAgg,ggplot2::aes(x=YEAR,y=1+length(unlist(topxnespp3s))+totLand/100000)) +
-    ggplot2::theme(legend.position = "none",axis.title.x=ggplot2::element_blank(),axis.title.y=ggplot2::element_blank())
+  p <- ggplot2::ggplot(data = topxGrid) +
+    ggplot2::geom_point(
+      mapping = ggplot2::aes(x = YEAR, y = COMMON_NAME, color = PresenceAbsence)
+    ) +
+    ggplot2::scale_color_manual(values = c("white", "darkgreen")) +
+    ggplot2::geom_line(
+      data = yearAgg,
+      ggplot2::aes(
+        x = YEAR,
+        y = 1 + length(unlist(topxnespp3s)) + totLand / 100000
+      )
+    ) +
+    ggplot2::theme(
+      legend.position = "none",
+      axis.title.x = ggplot2::element_blank(),
+      axis.title.y = ggplot2::element_blank()
+    )
 
   if (!is.null(filename)) {
-    ggplot2::ggsave(filename=filename,plot=p, ...)
+    ggplot2::ggsave(filename = filename, plot = p, ...)
   }
 
   names(topxGrid)[names(topxGrid) == "NESPP3"] <- speciesCodeCN
   names(topxGrid)[names(topxGrid) == "CATCH"] <- catchCN
 
-  return(list(plotObj = p,data=topxGrid))
-
-
-
+  return(list(plotObj = p, data = topxGrid))
 }

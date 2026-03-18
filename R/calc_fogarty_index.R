@@ -31,8 +31,14 @@
 
 ## need to generalize column names
 
-calc_fogarty_index <- function(catch, PP, yearFieldCatch="YEAR", catchField ="totLand", ppField ="ANNUAL_MEAN",yearFieldPP="YEAR"){
-
+calc_fogarty_index <- function(
+  catch,
+  PP,
+  yearFieldCatch = "YEAR",
+  catchField = "totLand",
+  ppField = "ANNUAL_MEAN",
+  yearFieldPP = "YEAR"
+) {
   #rename catch field
   names(catch)[names(catch) == yearFieldCatch] <- "YEAR"
   names(catch)[names(catch) == catchField] <- "catch"
@@ -47,17 +53,15 @@ calc_fogarty_index <- function(catch, PP, yearFieldCatch="YEAR", catchField ="to
   totPP <- PP$PP %>%
     dplyr::mutate(totalPP = ANNUAL_MTON)
 
-
   # divide by 9 to go from lcatch wet weight to Carbon
   totCatch <- catch %>%
     dplyr::group_by(YEAR) %>%
-    dplyr::summarise(totalCatch = sum(catch)/9) %>%
-    dplyr::left_join(totPP,by="YEAR")
+    dplyr::summarise(totalCatch = sum(catch) / 9) %>%
+    dplyr::left_join(totPP, by = "YEAR")
 
-  fogarty <- totCatch %>% dplyr::mutate(Index=totalCatch/totalPP) %>%
-    dplyr::select(YEAR,Index)
+  fogarty <- totCatch %>%
+    dplyr::mutate(Index = totalCatch / totalPP) %>%
+    dplyr::select(YEAR, Index)
 
   return(fogarty)
-
-
 }

@@ -12,13 +12,12 @@
 #'@return Numeric vector. combined vectors of Trophic level
 #'@export
 
-
-select_troph <- function(DietTroph,FoodTroph,EstTroph){
+select_troph <- function(DietTroph, FoodTroph, EstTroph) {
   troph <- DietTroph
   # if Dietroph is missing use FoodTroph
   ind <- is.na(DietTroph)
   troph[ind] <- FoodTroph[ind]
-  if (!is.null(EstTroph)){
+  if (!is.null(EstTroph)) {
     # if still missing then use EstTroph
     ind <- is.na(DietTroph)
     troph[ind] <- EstTroph[ind]

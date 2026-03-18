@@ -7,17 +7,16 @@
 #'
 #'@export
 
-
-
-plot_mtl_index <- function(MTL,epu){
- 
-
+plot_mtl_index <- function(MTL, epu) {
   # plot mean trophic level
-  p <- ggplot2::ggplot(data = MTL) + 
-    ggplot2::geom_line(mapping = ggplot2::aes(x = YEAR, y = INDEX), size = 1, color = "black") +
-    ggplot2::labs(title = paste0("EPU: ",epu,". Threshold = ", threshold)) + 
+  p <- ggplot2::ggplot(data = MTL) +
+    ggplot2::geom_line(
+      mapping = ggplot2::aes(x = YEAR, y = INDEX),
+      size = 1,
+      color = "black"
+    ) +
+    ggplot2::labs(title = paste0("EPU: ", epu, ". Threshold = ", threshold)) +
     ggplot2::ylab("Mean Trophic Level")
-  
- return(p)
-  
+
+  return(p)
 }

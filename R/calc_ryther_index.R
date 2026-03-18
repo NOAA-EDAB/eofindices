@@ -31,14 +31,19 @@
 
 ## need to generalize column names
 
-calc_ryther_index <- function(catch, area, yearField = "YEAR", catchField ="totLand"){
-
+calc_ryther_index <- function(
+  catch,
+  area,
+  yearField = "YEAR",
+  catchField = "totLand"
+) {
   #rename catch field
   names(catch)[names(catch) == yearField] <- "YEAR"
   names(catch)[names(catch) == catchField] <- "catch"
 
-  ryther <- catch %>% dplyr::group_by(YEAR) %>%
-    dplyr::summarise(Index = sum(catch)/area)
+  ryther <- catch %>%
+    dplyr::group_by(YEAR) %>%
+    dplyr::summarise(Index = sum(catch) / area)
 
   return(ryther)
 }

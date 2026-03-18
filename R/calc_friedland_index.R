@@ -27,22 +27,26 @@
 
 ## need to generalize column names
 
-calc_friedland_index <- function(catch, chlorophyll, yearField="YEAR", catchField ="totLand",chloroField ="ANNUAL_MEAN"){
-
+calc_friedland_index <- function(
+  catch,
+  chlorophyll,
+  yearField = "YEAR",
+  catchField = "totLand",
+  chloroField = "ANNUAL_MEAN"
+) {
   #rename catch field
   names(catch)[names(catch) == yearField] <- "YEAR"
   names(catch)[names(catch) == catchField] <- "catch"
-  names(chlorophyll)[names(chlorophyll)==chloroField] <- "ANNUAL_MEAN"
+  names(chlorophyll)[names(chlorophyll) == chloroField] <- "ANNUAL_MEAN"
 
   totCatch <- catch %>%
     dplyr::group_by(YEAR) %>%
     dplyr::summarise(totalCatch = sum(catch)) %>%
-    dplyr::left_join(chlorophyll,by="YEAR")
+    dplyr::left_join(chlorophyll, by = "YEAR")
 
-  friedland <- totCatch %>% dplyr::mutate(Index=totalCatch/ANNUAL_MEAN) %>%
-    dplyr::select(YEAR,Index)
+  friedland <- totCatch %>%
+    dplyr::mutate(Index = totalCatch / ANNUAL_MEAN) %>%
+    dplyr::select(YEAR, Index)
 
   return(friedland)
-
-
 }

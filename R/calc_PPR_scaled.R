@@ -23,22 +23,25 @@
 #'
 #'@export
 
-
-calc_ppr_scaled <- function(PPR,PP,pprField="INDEX",yearFieldPPR="YEAR",ppField = "ANNUAL_MTON",yearFieldPP="YEAR") {
-
+calc_ppr_scaled <- function(
+  PPR,
+  PP,
+  pprField = "INDEX",
+  yearFieldPPR = "YEAR",
+  ppField = "ANNUAL_MTON",
+  yearFieldPP = "YEAR"
+) {
   names(PPR)[names(PPR) == yearFieldPPR] <- "YEAR"
   names(PPR)[names(PPR) == pprField] <- "INDEX"
   names(PP)[names(PP) == yearFieldPP] <- "YEAR"
   names(PP)[names(PP) == ppField] <- "ANNUAL_MTON"
 
-
   # join data frames
-  joinedTab <- dplyr::left_join(PP,PPR,by = "YEAR")
+  joinedTab <- dplyr::left_join(PP, PPR, by = "YEAR")
 
   # scale the index
   scaledIndex <- joinedTab %>%
-    dplyr::mutate(SCALEDINDEX = INDEX/ANNUAL_MTON)
+    dplyr::mutate(SCALEDINDEX = INDEX / ANNUAL_MTON)
 
   return(scaledIndex)
-
 }

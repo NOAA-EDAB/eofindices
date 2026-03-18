@@ -17,23 +17,21 @@
 #'
 #'@export
 
-
-select_top_x_percent <- function(NESPP3,LANDINGS,threshold){
-
-  d <- data.frame(NESPP3 = NESPP3,LANDINGS = LANDINGS,stringsAsFactors = F)
+select_top_x_percent <- function(NESPP3, LANDINGS, threshold) {
+  d <- data.frame(NESPP3 = NESPP3, LANDINGS = LANDINGS, stringsAsFactors = F)
 
   newd <- d %>%
     dplyr::arrange(desc(LANDINGS)) %>%
     dplyr::mutate(cum_sum = cumsum(LANDINGS)) %>%
-    dplyr::mutate(percent=cum_sum/sum(LANDINGS)) %>%
-    dplyr::mutate(flag= percent<= threshold)
+    dplyr::mutate(percent = cum_sum / sum(LANDINGS)) %>%
+    dplyr::mutate(flag = percent <= threshold)
 
-  ind <- sum(newd$flag==TRUE) + 1
+  ind <- sum(newd$flag == TRUE) + 1
   newd$flag[ind] <- TRUE
 
-  species <- newd %>% dplyr::filter(flag == TRUE) %>%
-    dplyr::select(NESPP3,LANDINGS)
+  species <- newd %>%
+    dplyr::filter(flag == TRUE) %>%
+    dplyr::select(NESPP3, LANDINGS)
 
   return(dplyr::as_tibble(species))
-
 }
