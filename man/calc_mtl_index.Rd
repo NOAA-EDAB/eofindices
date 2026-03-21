@@ -4,7 +4,12 @@
 \alias{calc_mtl_index}
 \title{Calculate the mean Trophic Level}
 \usage{
-calc_mtl_index(catch, speciesTL, speciesCode = "NESPP3")
+calc_mtl_index(
+  catch,
+  speciesTL,
+  speciesCode = "NESPP3",
+  catch_field = "totLand"
+)
 }
 \arguments{
 \item{speciesTL}{dataframe. m x anything. Species codes and trophic level for the most abundantly caught species. One column must be named NESPP3 and another Troph}

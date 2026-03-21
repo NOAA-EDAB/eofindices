@@ -7,7 +7,7 @@
 #'
 #'@param DietTroph Numeric vector. Value of Trophic level
 #'@param FoodTroph Numeric vector. Value of Trophic level
-#'param EstTroph Numeric vector. Value of Trophic level
+#'@param EstTroph Numeric vector. Value of Trophic level
 #'
 #'@return Numeric vector. combined vectors of Trophic level
 #'@export

@@ -8,7 +8,8 @@ calc_ppr_index(
   catch,
   speciesTL,
   transferEfficiency = 0.1,
-  speciesCode = "NESPP3"
+  speciesCode = "NESPP3",
+  catch_field = "totLand"
 )
 }
 \arguments{
