@@ -1,7 +1,7 @@
 #'Obtain trophic level data from rfishbase
 #'
 #'The trophic level will be obtained for each scientific name provided.
-#'Search will be in fishbase for vertibrates and sealifebase for invertibrates.
+#'Search will be in fishbase for vertebrates and sealifebase for invertebrates.
 #'Two fields are accessed from the ecology table, FoodTroph and DietTroph.
 #'See fishbase for more details (http://fishbase.us/manual/English/FishbaseThe_ECOLOGY_Table.htm)
 #'
@@ -12,7 +12,7 @@
 #'\item{genusSpecies}{TRUE if species name is genus species, otherwise FALSE}
 #'\item{DietTroph}{Value from DietTroph field in fishbase ecology table}
 #'\item{FoodTroph}{Value from FoodTroph field in fishbase ecology table}
-#'\item{vertibrate}{TRUE if species found in fishbase, FALSE if found in sealifebase, NA if not found}
+#'\item{vertebrate}{TRUE if species found in fishbase, FALSE if found in sealifebase, NA if not found}
 #'
 #'
 #'
@@ -25,12 +25,12 @@ get_trophic_level <- function(lookupTable) {
 
   # create base table, select scientific name for fishbase
   fishbaseTable <- lookupTable |>
-    dplyr::mutate(genusSpecies = grepl("\\s+", SCIENTIFIC_NAME)) %>%
+    dplyr::mutate(genusSpecies = grepl("\\s+", SCIENTIFIC_NAME)) |>
     dplyr::mutate(
       DietTroph = NA,
       FoodTroph = NA,
       EstTroph = NA,
-      vertibrate = NA
+      vertebrate = NA
     )
 
   nSpecies <- dim(fishbaseTable)[1]
@@ -40,69 +40,38 @@ get_trophic_level <- function(lookupTable) {
   fishbase_data <- rfishbase::load_taxa(server = "fishbase")
   sealife_data <- rfishbase::load_taxa(server = "sealifebase")
   for (isp in 1:nSpecies) {
+    print(isp)
     speciesNm <- capitalize_first_letter(fishbaseTable$SCIENTIFIC_NAME[isp])
     print(speciesNm)
+
     if (fishbaseTable$genusSpecies[isp]) {
       # species name
       # check to see if it is in fishbase
       if (any(fishbase_data$Species == speciesNm)) {
-        #vertibrate
-        fishbaseTable$vertibrate[isp] <- TRUE
-        # search fishbase and sealifebase
-        vertibrates <- rfishbase::ecology(
-          species_list = speciesNm,
-          server = "fishbase"
-        ) |>
-          dplyr::select(DietTroph, FoodTroph)
-        if (nrow(vertibrates) == 0) {
-          # if no data
-          # set DietTroph, FoodTroph to NA
-          vertibrates <- data.frame(DietTroph = NA, FoodTroph = NA)
-        }
-        # estimate table.
-        est <- rfishbase::estimate(
-          species_list = speciesNm,
-          server = "fishbase"
-        ) |>
-          dplyr::select(Troph)
-        vertibrates <- cbind(vertibrates, est)
-        if (any(!is.na(vertibrates))) {
-          if ((dim(vertibrates)[1]) > 1) {
-            vertibrates <- data.frame(as.list(colMeans(vertibrates, na.rm = T)))
-          }
-          fishbaseTable$DietTroph[isp] <- vertibrates$DietTroph
-          fishbaseTable$FoodTroph[isp] <- vertibrates$FoodTroph
-          fishbaseTable$EstTroph[isp] <- est$Troph
-        }
+        #vertebrate
+        fishbaseTable$vertebrate[isp] <- TRUE
+        species_entry <- find_species_trophic_values(
+          species_name = speciesNm,
+          server_name = "fishbase"
+        )
+        print(species_entry)
+        fishbaseTable$DietTroph[isp] <- species_entry$DietTroph
+        fishbaseTable$FoodTroph[isp] <- species_entry$FoodTroph
+        fishbaseTable$EstTroph[isp] <- species_entry$EstTroph
       } else if (
         any(
           sealife_data$Species == speciesNm
         )
       ) {
-        #invertibrate
-        fishbaseTable$vertibrate[isp] <- FALSE
-        invertibrates <- rfishbase::ecology(
-          species_list = speciesNm,
-          server = "sealifebase"
-        ) |>
-          dplyr::select(DietTroph, FoodTroph)
-        est <- rfishbase::estimate(
-          species_list = speciesNm,
-          server = "sealifebase"
-        ) |>
-          dplyr::select(Troph)
-        invertibrates <- cbind(invertibrates, est)
-        if (any(!is.na(invertibrates))) {
-          if ((dim(invertibrates)[1]) > 1) {
-            invertibrates <- data.frame(as.list(colMeans(
-              vertibrates,
-              na.rm = TRUE
-            )))
-          }
-          fishbaseTable$DietTroph[isp] <- invertibrates$DietTroph
-          fishbaseTable$FoodTroph[isp] <- invertibrates$FoodTroph
-          fishbaseTable$EstTroph[isp] <- est$Troph
-        }
+        #invertebrate
+        fishbaseTable$vertebrate[isp] <- FALSE
+        species_entry <- find_species_trophic_values(
+          species_name = speciesNm,
+          server_name = "sealifebase"
+        )
+        fishbaseTable$DietTroph[isp] <- species_entry$DietTroph
+        fishbaseTable$FoodTroph[isp] <- species_entry$FoodTroph
+        fishbaseTable$EstTroph[isp] <- species_entry$EstTroph
       } else {
         # not in fishbase or sealife base. but is a species Code
         missingSpecies <- rbind(missingSpecies, speciesNm)
@@ -113,99 +82,79 @@ get_trophic_level <- function(lookupTable) {
         ))
       }
     } else {
-      # genus only
-      # find all species from this Genus
-      speciesNames <- fishbase_data |>
+      # genus or family only
+      # find if vertebrate species from this Genus
+      speciesNames_verts <- fishbase_data |>
         dplyr::filter(Genus == speciesNm) |>
         dplyr::mutate(sciName = Species) |>
-        dplyr::select(sciName)
+        dplyr::select(sciName) |>
+        dplyr::pull()
+
+      speciesNames_verts_family <- fishbase_data |>
+        dplyr::filter(Family == speciesNm) |>
+        dplyr::mutate(sciName = Species) |>
+        dplyr::select(sciName) |>
+        dplyr::pull()
+
+      speciesNames_inverts <- sealife_data |>
+        dplyr::filter(Genus == speciesNm) |>
+        dplyr::mutate(sciName = Species) |>
+        dplyr::select(sciName) |>
+        dplyr::pull()
+
+      speciesNames_inverts_family <- sealife_data |>
+        dplyr::filter(Genus == speciesNm) |>
+        dplyr::mutate(sciName = Species) |>
+        dplyr::select(sciName) |>
+        dplyr::pull()
+
+      if (
+        (length(speciesNames_verts) > 0) |
+          (length(speciesNames_verts_family) > 0)
+      ) {
+        # vertebrate
+        server_name <- "fishbase"
+        if (length(speciesNames_verts) > 0) {
+          speciesNames <- speciesNames_verts
+        } else {
+          speciesNames <- speciesNames_verts_family
+        }
+        fishbaseTable$vertebrate[isp] <- TRUE
+      } else {
+        if (length(speciesNames_inverts_family) > 0) {
+          speciesNames <- speciesNames_inverts
+        } else {
+          speciesNames <- speciesNames_inverts_family
+        }
+        server_name <- "sealifebase"
+        fishbaseTable$vertebrate[isp] <- FALSE
+      }
       # now select only species in Canada or USA
       speciesNs <- rfishbase::country(
         species_list = as.vector(unlist(speciesNames)),
-        server = "fishbase"
+        server = server_name
       ) |>
         dplyr::filter(country %in% c("Canada", "USA"), Saltwater == 1) |>
         dplyr::select(Species) |>
         dplyr::distinct()
 
-      # search ECOLOGY table and take mean of duplicates (Error in Fishbase???)
-      vertibrates <- rfishbase::ecology(
-        species_list = as.vector(unlist(speciesNs)),
-        server = "fishbase"
-      ) |>
-        dplyr::select(Species, DietTroph, FoodTroph) |>
-        dplyr::group_by(Species) |>
-        dplyr::summarise(
-          DietTroph = mean(DietTroph),
-          FoodTroph = mean(FoodTroph)
-        ) |>
-        dplyr::select(DietTroph, FoodTroph) |>
-        dplyr::ungroup()
+      species_entry <- find_genus_trophic_values(
+        species_name = speciesNs,
+        server_name = server_name
+      )
 
-      # search ESTIMATE table as a back up
-      est <- rfishbase::estimate(
-        species_list = as.vector(unlist(speciesNs)),
-        server = "fishbase"
-      ) |>
-        dplyr::select(Troph)
-
-      if (any(!is.na(vertibrates)) | any(!is.na(est))) {
-        fishbaseTable$DietTroph[isp] <- mean(
-          vertibrates$DietTroph,
-          na.rm = TRUE
-        )
-        fishbaseTable$FoodTroph[isp] <- mean(
-          vertibrates$FoodTroph,
-          na.rm = TRUE
-        )
-        fishbaseTable$EstTroph[isp] <- mean(est$FoodTroph, na.rm = TRUE)
-        fishbaseTable$vertibrate[isp] <- TRUE
-      } else {
-        # inverts
-
-        speciesNames <- sealife_data |>
-          dplyr::filter(Genus == speciesNm) |>
-          dplyr::mutate(sciName = Species) |>
-          dplyr::select(sciName)
-        # now select only species in Canada or USA
-        speciesNs <- rfishbase::country(
-          species_list = as.vector(unlist(speciesNames)),
-          server = "sealifebase"
-        ) |>
-          dplyr::filter(country %in% c("Canada", "USA"), Saltwater == 1) |>
-          dplyr::select(Species) |>
-          dplyr::distinct()
-
-        invertibrates <- rfishbase::ecology(
-          species_list = as.vector(unlist(speciesNs)),
-          server = "sealifebase"
-        ) |>
-          dplyr::select(DietTroph, FoodTroph)
-        est <- rfishbase::estimate(
-          species_list = as.vector(unlist(speciesNs)),
-          server = "sealifebase"
-        ) |>
-          dplyr::select(Troph)
-        invertibrates <- cbind(invertibrates, est)
-
-        if (any(!is.na(invertibrates))) {
-          invertibrates <- data.frame(as.list(colMeans(
-            invertibrates,
-            na.rm = TRUE
-          )))
-          fishbaseTable$DietTroph[isp] <- invertibrates$DietTroph
-          fishbaseTable$FoodTroph[isp] <- invertibrates$FoodTroph
-          fishbaseTable$vertibrate[isp] <- FALSE
-        }
-      }
+      fishbaseTable$DietTroph[isp] <- species_entry$DietTroph
+      fishbaseTable$FoodTroph[isp] <- species_entry$FoodTroph
+      fishbaseTable$EstTroph[isp] <- species_entry$EstTroph
     }
   }
 
   # create new field called Troph which uses DietToph.
-  # If DietRoph == NA then uses FoodTroph.
-  # If FoodTroph == NA uses estTroph.
-  fishbaseTable <- fishbaseTable %>%
-    dplyr::mutate(Troph = select_troph(DietTroph, FoodTroph, EstTroph = NULL))
+  # If DietTroph == NA then uses FoodTroph.
+  # If FoodTroph == NA uses EstTroph.
+  print(fishbaseTable)
+  fishbaseTable <- fishbaseTable |>
+    dplyr::mutate(Troph = select_troph(DietTroph, FoodTroph, EstTroph))
 
   return(list(fishbaseTable = fishbaseTable, missingSpecies = missingSpecies))
 }

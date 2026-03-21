@@ -15,11 +15,11 @@ Tibble. The same columns as \code{lookupTable} but with following additional col
 \item{genusSpecies}{TRUE if species name is genus species, otherwise FALSE}
 \item{DietTroph}{Value from DietTroph field in fishbase ecology table}
 \item{FoodTroph}{Value from FoodTroph field in fishbase ecology table}
-\item{vertibrate}{TRUE if species found in fishbase, FALSE if found in sealifebase, NA if not found}
+\item{vertebrate}{TRUE if species found in fishbase, FALSE if found in sealifebase, NA if not found}
 }
 \description{
 The trophic level will be obtained for each scientific name provided.
-Search will be in fishbase for vertibrates and sealifebase for invertibrates.
+Search will be in fishbase for vertebrates and sealifebase for invertebrates.
 Two fields are accessed from the ecology table, FoodTroph and DietTroph.
 See fishbase for more details (http://fishbase.us/manual/English/FishbaseThe_ECOLOGY_Table.htm)
 }
