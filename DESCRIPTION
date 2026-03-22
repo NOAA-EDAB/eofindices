@@ -11,6 +11,7 @@ License: file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 4.0)
+URL: https://github.com/NOAA-EDAB/eofindices, https://noaa-edab.github.io/eofindices/
 Imports: 
     dplyr,
     ggplot2,
