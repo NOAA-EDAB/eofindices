@@ -1,7 +1,7 @@
 # eofindices
 
-![deploy to github pages](https://github.com/andybeet/eofindices/workflows/deploy%20to%20github%20pages/badge.svg)
-![Install on windows](https://github.com/andybeet/eofindices/workflows/Install%20on%20windows/badge.svg)
+[![gh-pages](https://github.com/NOAA-EDAB/eofindices/actions/workflows/pkgdown.yml/badge.svg)](https://github.com/NOAA-EDAB/eofindices/actions/workflows/pkgdown.yml)
+[![R-CMD-check.yaml](https://github.com/NOAA-EDAB/eofindices/actions/workflows/R-CMD-check.yml/badge.svg)](https://github.com/NOAA-EDAB/eofindices/actions/workflows/R-CMD-check.yml)
 ![gitleaks](https://github.com/andybeet/eofindices/workflows/gitleaks/badge.svg)
 
 A suite of tools used to calculate and display Ecosystem overfishing indices (EOF)
@@ -40,7 +40,7 @@ Footnote:
 
 | [andybeet](https://github.com/andybeet)        
 | ----------------------------------------------------------------------------------------------- 
-| [![](https://avatars1.githubusercontent.com/u/22455149?s=100&v=4)](https://github.com/andybeet) | 
+| [![andybeet avatar](https://avatars1.githubusercontent.com/u/22455149?s=100&v=4)](https://github.com/andybeet) | 
 
 
 
