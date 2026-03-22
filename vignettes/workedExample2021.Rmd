@@ -33,15 +33,14 @@ Initial values for the following are needed:
 The data are intially filtered by epu and the landings are aggregated by YEAR for each species (NESPP3 code). A grid is then create for all species in all years
 
 ``` {r filterD, eval=F}
-library(magrittr)
 threshold <- "0.80"
 transferEff <- .15
 epu <- "GOM" 
 
 ## filter landings for designated EPU
-landings <- comland %>% dplyr::filter(EPU == epu)  %>% # US and NAFO landings
-  dplyr::group_by(YEAR,NESPP3) %>%
-  dplyr::summarise(totLand = sum(SPPLIVMT)) %>% 
+landings <- comland |> dplyr::filter(EPU == epu)   |>  # US and NAFO landings
+  dplyr::group_by(YEAR,NESPP3) |> 
+  dplyr::summarise(totLand = sum(SPPLIVMT)) |> 
   dplyr::arrange(YEAR,NESPP3)
 
 # list of unique species codes
@@ -62,7 +61,7 @@ lookup <- dbutils::create_species_lookup(channel,species=nespp3s)
 lookupTable <- lookup$data
 
 # Select distinct species for fishbase ------------------------------------
-fishbaseTable <- lookupTable %>% dplyr::select(COMMON_NAME,SCIENTIFIC_NAME,NESPP3) %>%
+fishbaseTable <- lookupTable |> dplyr::select(COMMON_NAME,SCIENTIFIC_NAME,NESPP3) |>
   dplyr::distinct()
 # access fishbase for Trophic level data
 callfishbase <- eofindices::get_trophic_level(fishbaseTable)
@@ -83,7 +82,7 @@ MTL <- data.frame()
 for (iy in yrs) { #loop
 
   # filter out categories 
-  annualLandings <- landings %>% dplyr::filter(YEAR == iy, !(NESPP3 %in% c("526","529","817","832","806"))) # OTHER FISH, ROCKWEED, SEAWEED, 806 = sea cucumbers
+  annualLandings <- landings |> dplyr::filter(YEAR == iy, !(NESPP3 %in% c("526","529","817","832","806"))) # OTHER FISH, ROCKWEED, SEAWEED, 806 = sea cucumbers
   if ((dim(annualLandings)[1]) == 0) {next}
   # pick species that make up top x % of landings
   topSpecies <- eofindices::select_top_x_percent(annualLandings$NESPP3,annualLandings$totLand,threshold)
@@ -95,9 +94,9 @@ for (iy in yrs) { #loop
   topTable <- set_missingTL(topTable)
 
   # filter the landings by year and species in top x% and aggregate
-  landingsTimeSeries <- landingsTable %>% dplyr::filter(NESPP3 %in% unique(topTable$NESPP3),YEAR == iy)
+  landingsTimeSeries <- landingsTable |> dplyr::filter(NESPP3 %in% unique(topTable$NESPP3),YEAR == iy)
   # total landings for this set of species
-  landingsTop <- landingsTimeSeries %>% dplyr::summarise(landings=sum(totLand))
+  landingsTop <- landingsTimeSeries |> dplyr::summarise(landings=sum(totLand))
   
   # Calculate the PPR & MTL indices------------------------------------------
   ### NOTE: We do not have discards in calculation, just landings
@@ -114,7 +113,7 @@ Primary production (PP) info is obtained and the PPR index is scaled by the annu
 
 ```{r scaledppr, eval = F}
 scaled <- eofindices::calc_PPR_scaled(PPR,PP)
-MTL <- MTL %>% dplyr::filter(YEAR %in% scaled$YEAR)
+MTL <- MTL |> dplyr::filter(YEAR %in% scaled$YEAR)
 ```
 
 The Fogarty and Ryther Indices are calculated
@@ -135,7 +134,7 @@ eofindices::plot_fogarty_index(fogarty_index,epu)
 eofindices::plot_ryther_index(ryther_index,epu)
 ```
 
-```{r includeplots1, eval = T, echo = F, out.width='50%'}
+```{r includeplots1, eval = T, echo = F, out.width='50%', fig.alt="All plots"}
 knitr::include_graphics("figures/2021/PPR-GOM-0_80.png")
 knitr::include_graphics("figures/2021/MTL-GOM-0_80.png")
 knitr::include_graphics("figures/2021/PP-GOM.png")
@@ -151,9 +150,9 @@ This will also require a connection to internal oracle databases. A connection o
 ```{r speciescompppr, eval=F}
 
 ## filter landings for designated EPU
-landings <- comland %>% dplyr::filter(EPU == epu)  %>% # US and NAFO landings
-  dplyr::group_by(YEAR,NESPP3) %>%
-  dplyr::summarise(totLand = sum(SPPLIVMT)) %>% 
+landings <- comland |> dplyr::filter(EPU == epu)  |> # US and NAFO landings
+  dplyr::group_by(YEAR,NESPP3) |>
+  dplyr::summarise(totLand = sum(SPPLIVMT)) |> 
   dplyr::arrange(YEAR,NESPP3)
 
   speciesComp <- eofindices::explore_species_composition(channel,landings,as.numeric(threshold),catchCN="totLand")
@@ -164,7 +163,7 @@ landings <- comland %>% dplyr::filter(EPU == epu)  %>% # US and NAFO landings
   speciesComp$data$COMMON_NAME[ind] <- "SQUID,UNC"
 
   # aggregate all landings by YEAR  
-  yearAgg <- speciesComp$data %>% dplyr::group_by(YEAR) %>% dplyr::summarize(totLand=sum(LANDINGS,na.rm = T))
+  yearAgg <- speciesComp$data |> dplyr::group_by(YEAR) |> dplyr::summarize(totLand=sum(LANDINGS,na.rm = T))
   
 }
 
@@ -174,7 +173,7 @@ plot(speciesComp$plotObj)
 ```
 
 
-```{r plotspeciescomp, echo = F, eval = T, out.width='80%'}
+```{r plotspeciescomp, echo = F, eval = T, out.width='80%',fig.alt="Gulf of Maine - psecies composition"}
 knitr::include_graphics("figures/2021/composition-GOM-0_80.png")
 ```
 

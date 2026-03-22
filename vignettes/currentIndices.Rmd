@@ -51,7 +51,7 @@ knitr::include_graphics(paste0("figures/2021/PPR-GB-0_80.png"))
 knitr::include_graphics(paste0("figures/2021/MTL-GB-0_80.png"))
 ```
 
-```{r pp2, echo = F, eval = T, fig.cap="",out.width='80%'}
+```{r pp2, echo = F, eval = T, fig.cap="",out.width='80%',fig.alt="GB Primary production"}
 knitr::include_graphics(paste0("figures/2021/PP-GB.png"))
 ```
 
